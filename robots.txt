@@ -1,0 +1,5 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://seanalpaca818.github.io/ShaoyiZheng.github.io/sitemap.xml
+
