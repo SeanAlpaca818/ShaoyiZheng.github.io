@@ -13,7 +13,7 @@ title                    : "Shaoyi Zheng"
 title_separator          : "-"
 name                     : &name "Shaoyi Zheng"
 description              : &description "Shaoyi Zheng - PhD Student in Computer Science at NYU Courant, focusing on Efficient AI and Generative Models"   # Update this with a general description of your site, this is the default if not overridden by a page
-url                      : https://seanalpaca818.github.io/ShaoyiZheng.github.io/ # The base hostname & protocol for your site e.g. "https://[your GitHub username].github.io",
+url                      : https://www.shaoyizheng.me # The base hostname & protocol for your site e.g. "https://[your GitHub username].github.io",
                                                            # or if you already have some other page hosted on Github then use "https://[your GitHub username].github.io/[Your Repo Name]"
 baseurl                  : "" # the subpath of your site, e.g. "/blog"
 repository               : "academicpages/academicpages.github.io"
