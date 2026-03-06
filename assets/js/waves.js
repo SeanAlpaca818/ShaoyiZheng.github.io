@@ -9,6 +9,43 @@
 (function () {
   'use strict';
 
+  /* ---------- Color conversion helpers ---------- */
+  function rgbToHsl(r, g, b) {
+    r /= 255; g /= 255; b /= 255;
+    var max = Math.max(r, g, b), min = Math.min(r, g, b);
+    var h, s, l = (max + min) / 2;
+    if (max === min) { h = s = 0; }
+    else {
+      var d = max - min;
+      s = l > 0.5 ? d / (2 - max - min) : d / (max + min);
+      if (max === r) h = ((g - b) / d + (g < b ? 6 : 0)) / 6;
+      else if (max === g) h = ((b - r) / d + 2) / 6;
+      else h = ((r - g) / d + 4) / 6;
+    }
+    return [h * 360, s * 100, l * 100];
+  }
+
+  function hslToRgb(h, s, l) {
+    h /= 360; s /= 100; l /= 100;
+    var r, g, b;
+    if (s === 0) { r = g = b = l; }
+    else {
+      function hue2rgb(p, q, t) {
+        if (t < 0) t += 1; if (t > 1) t -= 1;
+        if (t < 1/6) return p + (q - p) * 6 * t;
+        if (t < 1/2) return q;
+        if (t < 2/3) return p + (q - p) * (2/3 - t) * 6;
+        return p;
+      }
+      var q = l < 0.5 ? l * (1 + s) : l + s - l * s;
+      var p = 2 * l - q;
+      r = hue2rgb(p, q, h + 1/3);
+      g = hue2rgb(p, q, h);
+      b = hue2rgb(p, q, h - 1/3);
+    }
+    return [Math.round(r * 255), Math.round(g * 255), Math.round(b * 255)];
+  }
+
   /* ---------- Perlin Noise (classic 2-D, self-contained) ---------- */
   var perm = new Uint8Array(512);
   var grad = [
@@ -65,6 +102,9 @@
     el._gap = 15;
     el._mouseEnabled = false;
     el._strokeColor = 'rgba(56,189,248,0.4)';
+    el._lastColor = '';
+    el._rippleStart = 0;   // timestamp when ripple began
+    el._rippleDuration = 1000; // ms for ripple to travel center→edge
     el._resizeTimer = null;
     return el;
   }
@@ -176,10 +216,62 @@
     var mouseActive = this._mouseEnabled && mouseX > -9000;
     var mouseRadius = 160;
 
-    ctx.strokeStyle = this._strokeColor;
     ctx.lineWidth = 1;
 
-    for (var i = 0; i < this._lines.length; i++) {
+    // Detect color change → trigger ripple
+    var sc = this._strokeColor;
+    if (sc !== this._lastColor) {
+      this._lastColor = sc;
+      this._rippleStart = performance.now();
+    }
+
+    // Parse base stroke color
+    var bR = 56, bG = 189, bB = 248, baseAlpha = 0.4;
+    var rgbaMatch = sc.match(/rgba?\(\s*(\d+)\s*,\s*(\d+)\s*,\s*(\d+)\s*(?:,\s*([\d.]+))?\s*\)/);
+    if (rgbaMatch) {
+      bR = parseInt(rgbaMatch[1]); bG = parseInt(rgbaMatch[2]); bB = parseInt(rgbaMatch[3]);
+      baseAlpha = rgbaMatch[4] !== undefined ? parseFloat(rgbaMatch[4]) : 1;
+    }
+
+    // Convert base to HSL for hue shifting
+    var baseHSL = rgbToHsl(bR, bG, bB);
+    var totalLines = this._lines.length;
+    var center = (totalLines - 1) / 2;
+    var hueSpread = 50;
+
+    // Ripple state: a bright ring expanding from center to edges
+    var rippleAge = performance.now() - this._rippleStart;
+    var rippleActive = rippleAge < this._rippleDuration;
+    // rippleFront: 0 (center) → 1 (edge) over duration
+    var rippleFront = rippleActive ? rippleAge / this._rippleDuration : -1;
+
+    for (var i = 0; i < totalLines; i++) {
+      // -1 at left edge, 0 at center, +1 at right edge
+      var pos = (i - center) / center;
+      var distFromCenter = Math.abs(pos); // 0 at center, 1 at edge
+
+      // Hue shifts across the spread
+      var h = (baseHSL[0] + pos * hueSpread + 360) % 360;
+      var rgb = hslToRgb(h, baseHSL[1], baseHSL[2]);
+
+      // Base alpha: bright center, dim edges
+      var ratio = 1 - distFromCenter;
+      var alpha = baseAlpha * (0.15 + 0.85 * ratio * ratio);
+
+      // Ripple boost: lines near the ripple front get a brightness pulse
+      if (rippleActive) {
+        var distToFront = Math.abs(distFromCenter - rippleFront);
+        var ringWidth = 0.18;
+        if (distToFront < ringWidth) {
+          var pulse = 1 - distToFront / ringWidth;
+          // Fade out ripple intensity as it reaches the edge
+          var fadeOut = 1 - rippleFront * 0.5;
+          alpha = Math.min(alpha + baseAlpha * 1.8 * pulse * pulse * fadeOut, 1);
+        }
+      }
+
+      ctx.strokeStyle = 'rgba(' + rgb[0] + ',' + rgb[1] + ',' + rgb[2] + ',' + alpha.toFixed(3) + ')';
+
       var segs = this._lines[i];
       ctx.beginPath();
       for (var j = 0; j < segs.length; j++) {

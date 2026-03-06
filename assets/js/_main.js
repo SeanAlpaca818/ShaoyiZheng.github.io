@@ -99,8 +99,7 @@ $(document).ready(function () {
           }
         });
 
-  // Enable the theme toggle
-  $('#theme-toggle').on('click', toggleTheme);
+  // Theme toggle removed — color palette button handles theming
 
   // Enable the sticky footer
   var bumpIt = function () {

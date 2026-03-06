@@ -189,7 +189,7 @@
     }
   }
 
-  button {
+  #nav-hamburger {
     position: absolute;
     height: 2.5rem;
     right: 0;
@@ -226,6 +226,15 @@
     }
 
     #theme-toggle {
+      a {
+        width: 25px;
+        display: flex;
+        justify-content: center;
+        cursor: pointer;
+      }
+    }
+
+    #color-cycle {
       a {
         width: 25px;
         display: flex;
