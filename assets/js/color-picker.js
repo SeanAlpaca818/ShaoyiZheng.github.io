@@ -79,12 +79,12 @@
       };
     } else {
       bg = {
-        heroBg: hsl(h,s,8), sectionBg: hsl(h,Math.min(s,30),97),
-        sectionAltBg: '#fff', cardBg: '#fff',
-        cardBorder: hsl(h,Math.min(s,25),90), cardShadow: 'rgba('+a+',0.06)',
-        timelineLine: hsl(h,15,80), surface: '#fff',
-        surfaceRaised: hsl(h,Math.min(s,20),97),
-        globalBg: '#fff', footerBg: hsl(h,Math.min(s,20),97)
+        heroBg: hsl(h,s,8), sectionBg: hsl(h,Math.min(s,25),95),
+        sectionAltBg: hsl(h,Math.min(s,15),98), cardBg: hsl(h,Math.min(s,12),99),
+        cardBorder: hsl(h,Math.min(s,25),90), cardShadow: 'rgba('+a+',0.08)',
+        timelineLine: hsl(h,15,80), surface: hsl(h,Math.min(s,12),99),
+        surfaceRaised: hsl(h,Math.min(s,20),96),
+        globalBg: hsl(h,Math.min(s,15),98), footerBg: hsl(h,Math.min(s,20),95)
       };
     }
     return { accent: accent, deep: deep, light: light, glow: glow, wave: 'rgba('+a+',0.55)', bg: bg };
