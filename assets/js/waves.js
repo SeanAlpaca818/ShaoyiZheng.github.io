@@ -103,8 +103,6 @@
     el._mouseEnabled = false;
     el._strokeColor = 'rgba(56,189,248,0.4)';
     el._lastColor = '';
-    el._rippleStart = 0;   // timestamp when ripple began
-    el._rippleDuration = 1000; // ms for ripple to travel center→edge
     el._resizeTimer = null;
     return el;
   }
@@ -218,12 +216,7 @@
 
     ctx.lineWidth = 1;
 
-    // Detect color change → trigger ripple
     var sc = this._strokeColor;
-    if (sc !== this._lastColor) {
-      this._lastColor = sc;
-      this._rippleStart = performance.now();
-    }
 
     // Parse base stroke color
     var bR = 56, bG = 189, bB = 248, baseAlpha = 0.4;
@@ -239,12 +232,6 @@
     var center = (totalLines - 1) / 2;
     var hueSpread = 50;
 
-    // Ripple state: a bright ring expanding from center to edges
-    var rippleAge = performance.now() - this._rippleStart;
-    var rippleActive = rippleAge < this._rippleDuration;
-    // rippleFront: 0 (center) → 1 (edge) over duration
-    var rippleFront = rippleActive ? rippleAge / this._rippleDuration : -1;
-
     for (var i = 0; i < totalLines; i++) {
       // -1 at left edge, 0 at center, +1 at right edge
       var pos = (i - center) / center;
@@ -257,18 +244,6 @@
       // Base alpha: bright center, dim edges
       var ratio = 1 - distFromCenter;
       var alpha = baseAlpha * (0.15 + 0.85 * ratio * ratio);
-
-      // Ripple boost: lines near the ripple front get a brightness pulse
-      if (rippleActive) {
-        var distToFront = Math.abs(distFromCenter - rippleFront);
-        var ringWidth = 0.18;
-        if (distToFront < ringWidth) {
-          var pulse = 1 - distToFront / ringWidth;
-          // Fade out ripple intensity as it reaches the edge
-          var fadeOut = 1 - rippleFront * 0.5;
-          alpha = Math.min(alpha + baseAlpha * 1.8 * pulse * pulse * fadeOut, 1);
-        }
-      }
 
       ctx.strokeStyle = 'rgba(' + rgb[0] + ',' + rgb[1] + ',' + rgb[2] + ',' + alpha.toFixed(3) + ')';
 
