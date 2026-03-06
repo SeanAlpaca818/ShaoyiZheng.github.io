@@ -202,6 +202,9 @@
   try { saved = localStorage.getItem('accent-color-index'); } catch (e) {}
   if (saved !== null && RAW[parseInt(saved, 10)]) {
     currentIndex = parseInt(saved, 10);
+  } else {
+    // First visit: pick a random color so it's not always cyan
+    currentIndex = Math.floor(Math.random() * RAW.length);
   }
   applyInstant(currentIndex);
 

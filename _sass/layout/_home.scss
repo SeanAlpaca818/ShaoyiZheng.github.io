@@ -4,40 +4,40 @@
 
 /* ---------- CSS Custom Properties ---------- */
 :root {
-  --home-hero-bg:            #0f172a;
+  --home-hero-bg:            hsl(195, 90%, 8%);
   --home-hero-text:          #f1f5f9;
   --home-hero-muted:         #94a3b8;
   --home-accent:             #38bdf8;
   --home-accent-glow:        rgba(56, 189, 248, 0.35);
-  --home-card-bg:            #ffffff;
-  --home-card-border:        #e2e8f0;
-  --home-card-shadow:        rgba(0, 0, 0, 0.06);
+  --home-card-bg:            hsl(195, 12%, 99%);
+  --home-card-border:        hsl(195, 25%, 90%);
+  --home-card-shadow:        rgba(56, 189, 248, 0.08);
   --home-card-text:          #334155;
   --home-card-muted:         #64748b;
-  --home-section-bg:         #f8fafc;
-  --home-section-alt-bg:     #ffffff;
+  --home-section-bg:         hsl(195, 25%, 95%);
+  --home-section-alt-bg:     hsl(195, 15%, 98%);
   --home-section-text:       #1e293b;
-  --home-timeline-line:      #cbd5e1;
+  --home-timeline-line:      hsl(195, 15%, 80%);
   --home-tl-edu:             #14b8a6;
   --home-tl-pub:             #3b82f6;
   --home-tl-ind:             #f97316;
 }
 
 html[data-theme="dark"] {
-  --home-hero-bg:            #0b1120;
+  --home-hero-bg:            hsl(195, 60%, 6%);
   --home-hero-text:          #e2e8f0;
   --home-hero-muted:         #94a3b8;
   --home-accent:             #38bdf8;
   --home-accent-glow:        rgba(56, 189, 248, 0.25);
-  --home-card-bg:            #1e293b;
-  --home-card-border:        #334155;
+  --home-card-bg:            hsl(195, 25%, 17%);
+  --home-card-border:        hsl(195, 20%, 22%);
   --home-card-shadow:        rgba(0, 0, 0, 0.3);
   --home-card-text:          #e2e8f0;
   --home-card-muted:         #94a3b8;
-  --home-section-bg:         #0f172a;
-  --home-section-alt-bg:     #1e293b;
+  --home-section-bg:         hsl(195, 40%, 9%);
+  --home-section-alt-bg:     hsl(195, 30%, 14%);
   --home-section-text:       #e2e8f0;
-  --home-timeline-line:      #475569;
+  --home-timeline-line:      hsl(195, 15%, 32%);
   --home-tl-edu:             #2dd4bf;
   --home-tl-pub:             #60a5fa;
   --home-tl-ind:             #fb923c;

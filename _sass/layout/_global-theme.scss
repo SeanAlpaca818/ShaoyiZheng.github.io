@@ -18,16 +18,16 @@
   --global-dark-border-color:         #cbd5e1;
   --global-text-color:                #1e293b;
   --global-text-color-light:          #64748b;
-  --global-bg-color:                  #ffffff;
-  --global-footer-bg-color:           #f8fafc;
+  --global-bg-color:                  hsl(195, 15%, 98%);
+  --global-footer-bg-color:           hsl(195, 20%, 95%);
   --global-base-color:                #0ea5e9;
   --global-thead-color:               #f1f5f9;
   --global-code-background-color:     #f8fafc;
   --global-code-text-color:           #334155;
 
   /* Shared layout tokens (reused by both global + home) */
-  --gt-surface:            #ffffff;
-  --gt-surface-raised:     #f8fafc;
+  --gt-surface:            hsl(195, 12%, 99%);
+  --gt-surface-raised:     hsl(195, 20%, 96%);
   --gt-card-shadow:        0 1px 3px rgba(0, 0, 0, 0.06), 0 1px 2px rgba(0, 0, 0, 0.04);
   --gt-card-shadow-hover:  0 10px 30px rgba(0, 0, 0, 0.08);
   --gt-radius:             12px;
@@ -48,15 +48,15 @@ html[data-theme="dark"] {
   --global-dark-border-color:         #475569;
   --global-text-color:                #e2e8f0;
   --global-text-color-light:          #94a3b8;
-  --global-bg-color:                  #0f172a;
-  --global-footer-bg-color:           #0f172a;
+  --global-bg-color:                  hsl(195, 40%, 9%);
+  --global-footer-bg-color:           hsl(195, 40%, 9%);
   --global-base-color:                #38bdf8;
   --global-thead-color:               #1e293b;
   --global-code-background-color:     #1e293b;
   --global-code-text-color:           #e2e8f0;
 
-  --gt-surface:            #1e293b;
-  --gt-surface-raised:     #0f172a;
+  --gt-surface:            hsl(195, 25%, 17%);
+  --gt-surface-raised:     hsl(195, 40%, 9%);
   --gt-card-shadow:        0 1px 3px rgba(0, 0, 0, 0.2), 0 1px 2px rgba(0, 0, 0, 0.15);
   --gt-card-shadow-hover:  0 10px 30px rgba(0, 0, 0, 0.3);
   --gt-accent:             #38bdf8;
