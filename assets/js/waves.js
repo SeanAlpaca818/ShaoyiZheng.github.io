@@ -1,0 +1,231 @@
+/* =================================================================
+   <a-waves> — Perlin-noise wave canvas Web Component
+   Inspired by wodniack.dev. Configurable via HTML attributes:
+     data-lines  = "high" | "low"   (line density)
+     data-mouse  = "true" | "false" (mouse/touch interaction)
+     data-color  = CSS color        (default: rgba(56,189,248,0.4))
+   ================================================================= */
+
+(function () {
+  'use strict';
+
+  /* ---------- Perlin Noise (classic 2-D, self-contained) ---------- */
+  var perm = new Uint8Array(512);
+  var grad = [
+    [1, 1], [-1, 1], [1, -1], [-1, -1],
+    [1, 0], [-1, 0], [0, 1], [0, -1]
+  ];
+
+  // Seed the permutation table once
+  (function seedPerm() {
+    var p = [];
+    for (var i = 0; i < 256; i++) p[i] = i;
+    // Fisher-Yates
+    for (var i = 255; i > 0; i--) {
+      var j = Math.floor(Math.random() * (i + 1));
+      var tmp = p[i]; p[i] = p[j]; p[j] = tmp;
+    }
+    for (var i = 0; i < 512; i++) perm[i] = p[i & 255];
+  })();
+
+  function fade(t) { return t * t * t * (t * (t * 6 - 15) + 10); }
+  function lerp(a, b, t) { return a + t * (b - a); }
+
+  function noise2D(x, y) {
+    var X = Math.floor(x) & 255;
+    var Y = Math.floor(y) & 255;
+    x -= Math.floor(x);
+    y -= Math.floor(y);
+    var u = fade(x);
+    var v = fade(y);
+
+    var aa = perm[perm[X] + Y] & 7;
+    var ab = perm[perm[X] + Y + 1] & 7;
+    var ba = perm[perm[X + 1] + Y] & 7;
+    var bb = perm[perm[X + 1] + Y + 1] & 7;
+
+    function dot(gi, fx, fy) { return grad[gi][0] * fx + grad[gi][1] * fy; }
+
+    var x1 = lerp(dot(aa, x, y), dot(ba, x - 1, y), u);
+    var x2 = lerp(dot(ab, x, y - 1), dot(bb, x - 1, y - 1), u);
+    return lerp(x1, x2, v);
+  }
+
+  /* ---------- Web Component ---------- */
+  function AWaves() {
+    var el = Reflect.construct(HTMLElement, [], AWaves);
+    el._canvas = null;
+    el._ctx = null;
+    el._animId = null;
+    el._time = 0;
+    el._mouseX = -9999;
+    el._mouseY = -9999;
+    el._lines = [];
+    el._isVisible = true;
+    el._gap = 15;
+    el._mouseEnabled = false;
+    el._strokeColor = 'rgba(56,189,248,0.4)';
+    el._resizeTimer = null;
+    return el;
+  }
+
+  AWaves.prototype = Object.create(HTMLElement.prototype);
+  AWaves.prototype.constructor = AWaves;
+
+  AWaves.prototype.connectedCallback = function () {
+    var self = this;
+
+    // Read attributes
+    var linesAttr = this.getAttribute('data-lines') || 'high';
+    this._gap = linesAttr === 'low' ? 24 : 12;
+    this._mouseEnabled = this.getAttribute('data-mouse') === 'true';
+    this._strokeColor = this.getAttribute('data-color') || 'rgba(56,189,248,0.4)';
+
+    // Create canvas
+    this._canvas = document.createElement('canvas');
+    this._canvas.style.cssText = 'position:absolute;inset:0;width:100%;height:100%;display:block;';
+    this.appendChild(this._canvas);
+    this._ctx = this._canvas.getContext('2d');
+
+    this._resize();
+
+    // Events
+    window.addEventListener('resize', function () {
+      clearTimeout(self._resizeTimer);
+      self._resizeTimer = setTimeout(function () { self._resize(); }, 150);
+    });
+
+    if (this._mouseEnabled) {
+      this.addEventListener('mousemove', function (e) {
+        var r = self._canvas.getBoundingClientRect();
+        self._mouseX = e.clientX - r.left;
+        self._mouseY = e.clientY - r.top;
+      });
+      this.addEventListener('mouseleave', function () {
+        self._mouseX = -9999;
+        self._mouseY = -9999;
+      });
+      this.addEventListener('touchmove', function (e) {
+        var r = self._canvas.getBoundingClientRect();
+        var t = e.touches[0];
+        self._mouseX = t.clientX - r.left;
+        self._mouseY = t.clientY - r.top;
+      }, { passive: true });
+      this.addEventListener('touchend', function () {
+        self._mouseX = -9999;
+        self._mouseY = -9999;
+      });
+    }
+
+    // IntersectionObserver — pause when out of viewport
+    if ('IntersectionObserver' in window) {
+      var obs = new IntersectionObserver(function (entries) {
+        self._isVisible = entries[0].isIntersecting;
+        if (self._isVisible && !self._animId) {
+          self._animId = requestAnimationFrame(function () { self._draw(); });
+        }
+      }, { threshold: 0.05 });
+      obs.observe(this);
+    }
+
+    // Start
+    this._animId = requestAnimationFrame(function () { self._draw(); });
+  };
+
+  AWaves.prototype._resize = function () {
+    var w = this.offsetWidth || this.parentElement.offsetWidth;
+    var h = this.offsetHeight || this.parentElement.offsetHeight;
+    this._canvas.width = w;
+    this._canvas.height = h;
+    this._buildLines();
+  };
+
+  AWaves.prototype._buildLines = function () {
+    this._lines = [];
+    var w = this._canvas.width;
+    var h = this._canvas.height;
+    var gap = this._gap;
+    var numLines = Math.ceil(w / gap);
+    for (var i = 0; i <= numLines; i++) {
+      var x = i * gap;
+      var segments = [];
+      var segCount = Math.ceil(h / 4);
+      for (var j = 0; j <= segCount; j++) {
+        segments.push({ x: x, y: j * 4, ox: 0 });
+      }
+      this._lines.push(segments);
+    }
+  };
+
+  AWaves.prototype._draw = function () {
+    var self = this;
+    if (!this._isVisible) {
+      this._animId = null;
+      return;
+    }
+
+    var ctx = this._ctx;
+    var w = this._canvas.width;
+    var h = this._canvas.height;
+    ctx.clearRect(0, 0, w, h);
+
+    this._time += 0.003;
+
+    var mouseX = this._mouseX;
+    var mouseY = this._mouseY;
+    var mouseActive = this._mouseEnabled && mouseX > -9000;
+    var mouseRadius = 160;
+
+    ctx.strokeStyle = this._strokeColor;
+    ctx.lineWidth = 1;
+
+    for (var i = 0; i < this._lines.length; i++) {
+      var segs = this._lines[i];
+      ctx.beginPath();
+      for (var j = 0; j < segs.length; j++) {
+        var seg = segs[j];
+        var baseX = seg.x;
+        var baseY = seg.y;
+
+        // Perlin noise displacement
+        var noiseVal = noise2D(baseX * 0.006 + this._time, baseY * 0.008 + this._time * 0.5);
+        var displacement = noiseVal * 25;
+
+        // Mouse interaction
+        if (mouseActive) {
+          var dx = baseX - mouseX;
+          var dy = baseY - mouseY;
+          var dist = Math.sqrt(dx * dx + dy * dy);
+          if (dist < mouseRadius && dist > 0) {
+            var force = (1 - dist / mouseRadius) * 50;
+            displacement += (dx / dist) * force;
+          }
+        }
+
+        var px = baseX + displacement;
+        var py = baseY;
+
+        if (j === 0) {
+          ctx.moveTo(px, py);
+        } else {
+          ctx.lineTo(px, py);
+        }
+      }
+      ctx.stroke();
+    }
+
+    this._animId = requestAnimationFrame(function () { self._draw(); });
+  };
+
+  AWaves.prototype.disconnectedCallback = function () {
+    if (this._animId) {
+      cancelAnimationFrame(this._animId);
+      this._animId = null;
+    }
+  };
+
+  // Register custom element
+  if (!customElements.get('a-waves')) {
+    customElements.define('a-waves', AWaves);
+  }
+})();

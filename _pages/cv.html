@@ -1,0 +1,228 @@
+---
+layout: cv
+title: "Curriculum Vitae"
+permalink: /cv/
+author_profile: false
+redirect_from:
+  - /resume
+---
+
+{% include base_path %}
+
+<!-- ========== PAGE HERO ========== -->
+<section class="ds-page-hero">
+  <a-waves class="ds-page-hero__canvas" data-lines="low" data-mouse="false"></a-waves>
+  <div class="ds-page-hero__overlay"></div>
+  <div class="ds-page-hero__content">
+    <h1 class="ds-page-hero__title">Curriculum Vitae</h1>
+    <p class="ds-page-hero__subtitle">Shaoyi (Sean) Zheng &mdash; Ph.D. Student in Computer Science, NYU Courant</p>
+  </div>
+</section>
+
+<!-- ========== EDUCATION ========== -->
+<section class="ds-section">
+  <div class="ds-section__inner">
+    <h2 class="ds-section__title">Education</h2>
+
+    <div class="ds-timeline">
+      <div class="ds-timeline__item reveal" data-type="education">
+        <div class="ds-timeline__marker"></div>
+        <div class="ds-timeline__body">
+          <span class="ds-timeline__date">Sep 2025 &ndash; Present</span>
+          <h3 class="ds-timeline__heading">Ph.D. in Computer Science</h3>
+          <p>Courant Institute of Mathematical Sciences, New York University<br>
+          Advisor: <a href="https://sheng-jie-wang.github.io/" target="_blank" rel="noopener" style="color:var(--home-accent);text-decoration:none;">Prof. Shengjie Wang</a></p>
+        </div>
+      </div>
+
+      <div class="ds-timeline__item reveal" data-type="education">
+        <div class="ds-timeline__marker"></div>
+        <div class="ds-timeline__body">
+          <span class="ds-timeline__date">Aug 2021 &ndash; May 2025</span>
+          <h3 class="ds-timeline__heading">B.S. in Computer Science</h3>
+          <p>New York University Shanghai &amp; New York University. Minor in Mathematics.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ========== RESEARCH INTERESTS ========== -->
+<section class="ds-section">
+  <div class="ds-section__inner">
+    <h2 class="ds-section__title">Research Interests</h2>
+
+    <div class="ds-tags reveal-stagger">
+      <span class="ds-tag reveal">Efficient AI</span>
+      <span class="ds-tag reveal">Generative Models</span>
+      <span class="ds-tag reveal">Model Architectural Design</span>
+      <span class="ds-tag reveal">Algorithmic Acceleration</span>
+    </div>
+  </div>
+</section>
+
+<!-- ========== SELECTED PUBLICATIONS ========== -->
+{% assign pubs = site.publications | sort: "date" | reverse %}
+{% if pubs.size > 0 %}
+<section class="ds-section">
+  <div class="ds-section__inner">
+    <h2 class="ds-section__title">Selected Publications</h2>
+
+    <div class="ds-pub-grid reveal-stagger">
+      {% for pub in pubs %}
+      <a href="{{ base_path }}{{ pub.permalink }}" class="ds-pub-card reveal">
+        <span class="ds-pub-card__venue">{{ pub.venue }}</span>
+        <h3 class="ds-pub-card__title">{{ pub.title }}</h3>
+        {% if pub.excerpt %}
+          <p class="ds-pub-card__excerpt">{{ pub.excerpt | truncatewords: 25 }}</p>
+        {% endif %}
+        <span class="ds-pub-card__link">Read more &rarr;</span>
+      </a>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+{% endif %}
+
+<!-- ========== RESEARCH PROJECTS ========== -->
+<section class="ds-section">
+  <div class="ds-section__inner">
+    <h2 class="ds-section__title">Research Projects</h2>
+
+    <div class="ds-project-grid reveal-stagger">
+
+      <div class="ds-project-card reveal">
+        <div class="ds-project-card__header">
+          <div class="ds-project-card__icon"><i class="fas fa-bolt"></i></div>
+          <h3 class="ds-project-card__title">ToMA: Token Merge with Attention</h3>
+        </div>
+        <div class="ds-project-card__meta">ICML 2025 &middot; Co-First Author</div>
+        <p class="ds-project-card__desc">GPU-aligned token merging framework that reformulates merging as an attention-like linear transformation with invertible unmerge. Up to 1.4&times; speedup on SDXL without quality degradation.</p>
+        <div class="ds-project-card__tags">
+          <span class="ds-project-card__tag">Diffusion Models</span>
+          <span class="ds-project-card__tag">Token Merging</span>
+          <span class="ds-project-card__tag">Submodular Optimization</span>
+        </div>
+      </div>
+
+      <div class="ds-project-card reveal">
+        <div class="ds-project-card__header">
+          <div class="ds-project-card__icon"><i class="fas fa-project-diagram"></i></div>
+          <h3 class="ds-project-card__title">Hilbert Attention for Diffusion Models</h3>
+        </div>
+        <div class="ds-project-card__meta">Under review at ICLR 2026 &middot; First Author</div>
+        <p class="ds-project-card__desc">Sparse attention via Hilbert curves preserving 2D spatial locality with custom Triton kernels. Achieves up to 4.17&times; speedup on Flux.1 with comparable quality.</p>
+        <div class="ds-project-card__tags">
+          <span class="ds-project-card__tag">Sparse Attention</span>
+          <span class="ds-project-card__tag">Hilbert Curve</span>
+          <span class="ds-project-card__tag">Triton Kernels</span>
+        </div>
+      </div>
+
+      <div class="ds-project-card reveal">
+        <div class="ds-project-card__header">
+          <div class="ds-project-card__icon"><i class="fas fa-memory"></i></div>
+          <h3 class="ds-project-card__title">Speculative KV Recomputation</h3>
+        </div>
+        <div class="ds-project-card__meta">Under review at ACL 2026 &middot; First Author</div>
+        <p class="ds-project-card__desc">Alleviates prefill bottleneck in long-context LLMs using a smaller sibling model to predict critical tokens for selective KV recomputation. Up to 9.4&times; TTFT speedup.</p>
+        <div class="ds-project-card__tags">
+          <span class="ds-project-card__tag">Long-Context LLM</span>
+          <span class="ds-project-card__tag">KV Cache</span>
+          <span class="ds-project-card__tag">Speculative Decoding</span>
+        </div>
+      </div>
+
+      <div class="ds-project-card reveal">
+        <div class="ds-project-card__header">
+          <div class="ds-project-card__icon"><i class="fas fa-layer-group"></i></div>
+          <h3 class="ds-project-card__title">Sub-CP: Context Selection for ICL</h3>
+        </div>
+        <div class="ds-project-card__meta">Under review at ACL 2026 &middot; First Author</div>
+        <p class="ds-project-card__desc">Submodular, block-aware context selection framework controlling a diversity&ndash;coherence spectrum for scalable in-context learning with consistent benchmark improvements.</p>
+        <div class="ds-project-card__tags">
+          <span class="ds-project-card__tag">In-Context Learning</span>
+          <span class="ds-project-card__tag">Submodular Optimization</span>
+          <span class="ds-project-card__tag">NLP</span>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ========== INDUSTRY EXPERIENCE ========== -->
+<section class="ds-section">
+  <div class="ds-section__inner">
+    <h2 class="ds-section__title">Industry Experience</h2>
+
+    <div class="ds-timeline">
+      <div class="ds-timeline__item reveal" data-type="industry">
+        <div class="ds-timeline__marker"></div>
+        <div class="ds-timeline__body">
+          <span class="ds-timeline__date">May 2024 &ndash; Aug 2024</span>
+          <h3 class="ds-timeline__heading">Tencent Technology &mdash; ML Engineer Intern</h3>
+          <p>Built a 1M+ synthetic face dataset using SDXL + ControlNet + LoRA, accelerated generation by 40% via distributed pipelines, and contributed to fine-tuning a 1B-parameter multimodal anti-spoofing model on 8&times;H100 GPUs (97% accuracy).</p>
+        </div>
+      </div>
+
+      <div class="ds-timeline__item reveal" data-type="industry">
+        <div class="ds-timeline__marker"></div>
+        <div class="ds-timeline__body">
+          <span class="ds-timeline__date">May 2023 &ndash; Aug 2023</span>
+          <h3 class="ds-timeline__heading">SenseTime Technology &mdash; ML Engineer Intern</h3>
+          <p>Designed an 8M-sample dataset for Haitong Securities chatbot using advanced text augmentation (DeBERTaV3, RoBERTa/Sentence-BERT), improving accuracy by 7%.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ========== SKILLS ========== -->
+<section class="ds-section">
+  <div class="ds-section__inner">
+    <h2 class="ds-section__title">Skills</h2>
+
+    <div class="ds-skill-grid reveal-stagger">
+      <div class="ds-skill-card reveal">
+        <h3 class="ds-skill-card__title">Programming</h3>
+        <ul class="ds-skill-card__list">
+          <li>Python</li>
+          <li>PyTorch</li>
+          <li>CUDA &amp; Triton</li>
+          <li>C++</li>
+        </ul>
+      </div>
+
+      <div class="ds-skill-card reveal">
+        <h3 class="ds-skill-card__title">Machine Learning</h3>
+        <ul class="ds-skill-card__list">
+          <li>Diffusion Models</li>
+          <li>Transformer Architectures</li>
+          <li>LoRA Fine-tuning</li>
+          <li>Dataset Construction</li>
+        </ul>
+      </div>
+
+      <div class="ds-skill-card reveal">
+        <h3 class="ds-skill-card__title">Tools</h3>
+        <ul class="ds-skill-card__list">
+          <li>Git &amp; GitHub</li>
+          <li>LaTeX</li>
+          <li>Linux</li>
+          <li>Distributed Training</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ========== SERVICE ========== -->
+<section class="ds-section">
+  <div class="ds-section__inner">
+    <h2 class="ds-section__title">Service</h2>
+    <p class="reveal" style="font-size:1rem; line-height:1.7; color:var(--home-card-muted);">
+      Co-first author of ICML 2025 Poster paper <em>ToMA: Token Merge with Attention for Diffusion Models</em>.
+    </p>
+  </div>
+</section>

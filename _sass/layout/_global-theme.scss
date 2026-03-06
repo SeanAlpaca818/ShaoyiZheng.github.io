@@ -1,0 +1,634 @@
+/* ==========================================================================
+   GLOBAL THEME — Unified design language for ALL pages
+   Transforms inner pages (CV, Publications, single posts) to match
+   the homepage's modern aesthetic: spacious layout, card surfaces,
+   accent underlines, generous padding, and cohesive typography.
+   ========================================================================== */
+
+/* ==========================================================================
+   1. CSS CUSTOM PROPERTIES — Color palette override
+   ========================================================================== */
+:root {
+  --global-link-color:                #0ea5e9;
+  --global-link-color-hover:          #0284c7;
+  --global-link-color-visited:        #0ea5e9;
+  --global-masthead-link-color:       #334155;
+  --global-masthead-link-color-hover: #0ea5e9;
+  --global-border-color:              #e2e8f0;
+  --global-dark-border-color:         #cbd5e1;
+  --global-text-color:                #1e293b;
+  --global-text-color-light:          #64748b;
+  --global-bg-color:                  #ffffff;
+  --global-footer-bg-color:           #f8fafc;
+  --global-base-color:                #0ea5e9;
+  --global-thead-color:               #f1f5f9;
+  --global-code-background-color:     #f8fafc;
+  --global-code-text-color:           #334155;
+
+  /* Shared layout tokens (reused by both global + home) */
+  --gt-surface:            #ffffff;
+  --gt-surface-raised:     #f8fafc;
+  --gt-card-shadow:        0 1px 3px rgba(0, 0, 0, 0.06), 0 1px 2px rgba(0, 0, 0, 0.04);
+  --gt-card-shadow-hover:  0 10px 30px rgba(0, 0, 0, 0.08);
+  --gt-radius:             12px;
+  --gt-radius-sm:          8px;
+  --gt-accent:             #38bdf8;
+  --gt-accent-glow:        rgba(56, 189, 248, 0.25);
+  --gt-muted:              #64748b;
+  --gt-section-padding:    4rem 1.5rem;
+}
+
+html[data-theme="dark"] {
+  --global-link-color:                #38bdf8;
+  --global-link-color-hover:          #7dd3fc;
+  --global-link-color-visited:        #38bdf8;
+  --global-masthead-link-color:       #e2e8f0;
+  --global-masthead-link-color-hover: #38bdf8;
+  --global-border-color:              #334155;
+  --global-dark-border-color:         #475569;
+  --global-text-color:                #e2e8f0;
+  --global-text-color-light:          #94a3b8;
+  --global-bg-color:                  #0f172a;
+  --global-footer-bg-color:           #0f172a;
+  --global-base-color:                #38bdf8;
+  --global-thead-color:               #1e293b;
+  --global-code-background-color:     #1e293b;
+  --global-code-text-color:           #e2e8f0;
+
+  --gt-surface:            #1e293b;
+  --gt-surface-raised:     #0f172a;
+  --gt-card-shadow:        0 1px 3px rgba(0, 0, 0, 0.2), 0 1px 2px rgba(0, 0, 0, 0.15);
+  --gt-card-shadow-hover:  0 10px 30px rgba(0, 0, 0, 0.3);
+  --gt-accent:             #38bdf8;
+  --gt-accent-glow:        rgba(56, 189, 248, 0.2);
+  --gt-muted:              #94a3b8;
+}
+
+
+/* ==========================================================================
+   2. BODY & PAGE BACKGROUND — soft off-white like homepage sections
+   ========================================================================== */
+body {
+  background-color: var(--gt-surface-raised);
+}
+
+
+/* ==========================================================================
+   3. MASTHEAD — frosted glass, matching homepage nav feel
+   ========================================================================== */
+.masthead {
+  background: rgba(255, 255, 255, 0.8);
+  backdrop-filter: saturate(180%) blur(16px);
+  -webkit-backdrop-filter: saturate(180%) blur(16px);
+  border-bottom: 1px solid var(--global-border-color);
+
+  &::after {
+    display: none; /* replaced by border-bottom above */
+  }
+}
+
+html[data-theme="dark"] .masthead {
+  background: rgba(15, 23, 42, 0.8);
+}
+
+.greedy-nav {
+  background: transparent;
+
+  a {
+    font-weight: 500;
+    letter-spacing: 0.01em;
+  }
+
+  .visible-links a::before {
+    background: var(--gt-accent);
+    height: 3px;
+    border-radius: 2px;
+  }
+
+  .hidden-links {
+    background: var(--gt-surface);
+    border-color: var(--global-border-color);
+    border-radius: var(--gt-radius-sm);
+    box-shadow: var(--gt-card-shadow-hover);
+
+    &::before {
+      border-color: var(--global-border-color) transparent;
+    }
+
+    &::after {
+      border-color: var(--gt-surface) transparent;
+    }
+  }
+}
+
+.masthead__menu-item {
+  background-color: transparent;
+}
+
+
+/* ==========================================================================
+   4. MAIN CONTAINER — wider, more breathing room
+   ========================================================================== */
+#main {
+  max-width: 1100px;
+  margin-top: 3em;
+  padding-left: 2em;
+  padding-right: 2em;
+
+  @media (min-width: 80em) {
+    max-width: 1100px;
+  }
+}
+
+
+/* ==========================================================================
+   5. SIDEBAR — modern card-style author profile
+   ========================================================================== */
+.sidebar {
+  @media screen and (min-width: 1024px) {
+    padding-top: calc(#{$masthead-height} + 1rem);
+  }
+}
+
+.author__avatar {
+  img {
+    border-radius: 50%;
+    transition: box-shadow 0.3s ease, transform 0.3s ease;
+
+    @media screen and (min-width: 925px) {
+      border: 3px solid var(--gt-accent) !important;
+      box-shadow: 0 0 20px var(--gt-accent-glow);
+      padding: 4px !important;
+
+      &:hover {
+        box-shadow: 0 0 30px var(--gt-accent-glow);
+        transform: scale(1.03);
+      }
+    }
+  }
+}
+
+.author__name {
+  color: var(--global-text-color);
+  font-weight: 700;
+  font-size: 1.1em;
+}
+
+.author__bio {
+  color: var(--gt-muted);
+  line-height: 1.6;
+}
+
+.author__urls-wrapper {
+  button.btn {
+    border-radius: 20px;
+    border: 1.5px solid var(--gt-accent);
+    color: var(--gt-accent);
+    background: transparent;
+    font-weight: 600;
+    transition: all 0.2s ease;
+
+    &:hover {
+      background: var(--gt-accent);
+      color: #fff;
+    }
+  }
+}
+
+.author__urls {
+  @media screen and (min-width: 925px) {
+    border-top: 1px solid var(--global-border-color);
+    padding-top: 0.8em;
+    margin-top: 0.5em;
+  }
+
+  a {
+    color: var(--gt-muted);
+    font-size: 0.9em;
+    transition: color 0.2s ease, transform 0.2s ease;
+    display: inline-flex;
+    align-items: center;
+
+    &:hover {
+      color: var(--gt-accent);
+      text-decoration: none;
+    }
+  }
+
+  .fas, .fab, .far, .fal, .ai {
+    color: var(--gt-muted);
+    transition: color 0.2s ease;
+    width: 1.3em;
+  }
+
+  a:hover .fas,
+  a:hover .fab,
+  a:hover .far,
+  a:hover .fal,
+  a:hover .ai {
+    color: var(--gt-accent);
+  }
+}
+
+
+/* ==========================================================================
+   6. PAGE TITLE — hero-style, matches homepage section titles
+   ========================================================================== */
+.page__title,
+.archive > h1.page__title {
+  font-size: 2em;
+  font-weight: 700;
+  color: var(--global-text-color);
+  padding-bottom: 0.5rem;
+  border-bottom: 3px solid var(--gt-accent);
+  display: inline-block;
+  margin-bottom: 1.5rem;
+}
+
+
+/* ==========================================================================
+   7. PAGE CONTENT — card surface, modern typography
+   ========================================================================== */
+.page .page__inner-wrap,
+.archive {
+  /* give content area a card-like raised surface */
+  background: var(--gt-surface);
+  border-radius: var(--gt-radius);
+  padding: 2.5rem;
+  box-shadow: var(--gt-card-shadow);
+  margin-bottom: 2rem;
+
+  @media (max-width: 600px) {
+    padding: 1.5rem;
+    border-radius: var(--gt-radius-sm);
+  }
+}
+
+.page__content {
+  line-height: 1.75;
+
+  h1 {
+    font-size: 1.6em;
+    font-weight: 700;
+    color: var(--global-text-color);
+    margin-top: 2.5rem;
+    margin-bottom: 0.8rem;
+  }
+
+  h2 {
+    font-size: 1.35em;
+    font-weight: 700;
+    color: var(--global-text-color);
+    border-bottom: 3px solid var(--gt-accent);
+    padding-bottom: 0.4em;
+    margin-top: 2.5rem;
+    margin-bottom: 1rem;
+  }
+
+  h3 {
+    font-size: 1.1em;
+    font-weight: 600;
+    color: var(--global-text-color);
+    margin-top: 2rem;
+  }
+
+  a {
+    color: var(--gt-accent);
+    text-decoration: none;
+    font-weight: 500;
+    transition: color 0.2s ease;
+
+    &:hover {
+      color: var(--global-link-color-hover);
+      text-decoration: underline;
+    }
+  }
+
+  p {
+    color: var(--global-text-color);
+  }
+
+  li {
+    color: var(--global-text-color);
+    line-height: 1.7;
+    margin-bottom: 0.4em;
+  }
+
+  /* Styled bullet lists — cleaner spacing */
+  ul {
+    padding-left: 1.2em;
+  }
+
+  strong {
+    color: var(--global-text-color);
+    font-weight: 600;
+  }
+}
+
+/* Horizontal rules — subtle dividers matching homepage sections */
+hr {
+  border: none;
+  border-top: 1px solid var(--global-border-color);
+  margin: 2.5rem 0;
+}
+
+
+/* ==========================================================================
+   8. ARCHIVE ITEMS — card-style publication entries
+   ========================================================================== */
+.archive {
+  a {
+    color: var(--gt-accent);
+    text-decoration: none;
+
+    &:hover {
+      color: var(--global-link-color-hover);
+      text-decoration: underline;
+    }
+  }
+}
+
+.archive__subtitle {
+  font-size: 1.3em;
+  font-weight: 700;
+  color: var(--global-text-color);
+  border-bottom: 3px solid var(--gt-accent);
+  padding-bottom: 0.4em;
+  margin-bottom: 1.5rem;
+}
+
+/* Publication / archive list items — card style */
+.list__item {
+  padding-right: 0;
+  margin-bottom: 1.5rem;
+
+  @media (min-width: 768px)  { padding-right: 0; }
+  @media (min-width: 925px)  { padding-right: 0; }
+  @media (min-width: 1280px) { padding-right: 0; }
+
+  .archive__item {
+    background: var(--gt-surface-raised);
+    border: 1px solid var(--global-border-color);
+    border-radius: var(--gt-radius-sm);
+    padding: 1.5rem;
+    transition: transform 0.25s ease, box-shadow 0.25s ease;
+    margin-bottom: 0;
+
+    &:hover {
+      transform: translateY(-3px);
+      box-shadow: var(--gt-card-shadow-hover);
+    }
+  }
+}
+
+.archive__item-title {
+  font-weight: 600;
+  margin-bottom: 0.3em;
+  transition: color 0.2s ease;
+
+  a {
+    color: var(--global-text-color);
+    text-decoration: none;
+
+    &:hover {
+      color: var(--gt-accent);
+      text-decoration: none;
+    }
+  }
+}
+
+.archive__item-excerpt {
+  color: var(--gt-muted);
+  line-height: 1.6;
+  font-size: 0.9em;
+}
+
+
+/* ==========================================================================
+   9. SINGLE PUBLICATION PAGE — venue/date metadata styling
+   ========================================================================== */
+.page__inner-wrap {
+  header {
+    margin-bottom: 1.5rem;
+
+    p {
+      color: var(--gt-muted);
+      font-size: 0.95em;
+
+      i {
+        color: var(--gt-accent);
+      }
+    }
+  }
+}
+
+
+/* ==========================================================================
+   10. FOOTER — matches homepage section palette
+   ========================================================================== */
+.page__footer {
+  background-color: var(--gt-surface);
+  border-top: 1px solid var(--global-border-color);
+  color: var(--gt-muted);
+
+  a {
+    color: var(--gt-muted);
+    transition: color 0.2s ease;
+
+    &:hover {
+      color: var(--gt-accent);
+      text-decoration: none;
+    }
+  }
+
+  .fas, .fab, .far, .fal {
+    color: var(--gt-muted);
+  }
+}
+
+
+/* ==========================================================================
+   11. BLOCKQUOTES — accent left border
+   ========================================================================== */
+blockquote {
+  border-left: 4px solid var(--gt-accent);
+  background: var(--gt-surface-raised);
+  padding: 1em 1.5em;
+  border-radius: 0 var(--gt-radius-sm) var(--gt-radius-sm) 0;
+  color: var(--gt-muted);
+  margin: 1.5em 0;
+}
+
+
+/* ==========================================================================
+   12. INLINE CODE — softer, matching palette
+   ========================================================================== */
+a > code,
+figcaption > code,
+li > code,
+p > code,
+td > code {
+  background: var(--gt-surface-raised);
+  border-color: var(--global-border-color);
+  border-radius: 6px;
+  box-shadow: none;
+}
+
+
+/* ==========================================================================
+   13. BUTTONS — rounded, accent-colored
+   ========================================================================== */
+.btn {
+  border-radius: 20px;
+  font-weight: 600;
+  transition: all 0.2s ease;
+
+  &--primary {
+    background: var(--gt-accent);
+    border-color: var(--gt-accent);
+    color: #fff;
+
+    &:hover {
+      background: var(--global-link-color-hover);
+      border-color: var(--global-link-color-hover);
+    }
+  }
+
+  &--inverse {
+    border-color: var(--gt-accent);
+    color: var(--gt-accent);
+
+    &:hover {
+      background: var(--gt-accent);
+      color: #fff;
+    }
+  }
+}
+
+
+/* ==========================================================================
+   14. TABLE OF CONTENTS — modern card
+   ========================================================================== */
+.toc {
+  background-color: var(--gt-surface);
+  border-color: var(--global-border-color);
+  border-radius: var(--gt-radius-sm);
+  box-shadow: var(--gt-card-shadow);
+  overflow: hidden;
+
+  .nav__title {
+    background: var(--gt-accent);
+    border-radius: 0;
+  }
+}
+
+
+/* ==========================================================================
+   15. PAGINATION — rounded, modern
+   ========================================================================== */
+.pagination {
+  li a {
+    border-radius: 6px;
+    margin-left: 2px;
+    border-color: var(--global-border-color);
+    transition: all 0.2s ease;
+
+    &:hover {
+      color: var(--gt-accent);
+      border-color: var(--gt-accent);
+    }
+
+    &.current {
+      background: var(--gt-accent);
+      border-color: var(--gt-accent);
+    }
+  }
+}
+
+
+/* ==========================================================================
+   16. CV PAGE — styled sections (h1 rendered as h2 from markdown ======)
+   These selectors target the markdown-generated structure in cv.md
+   ========================================================================== */
+
+/* CV page h1s from markdown (Education, Projects, etc.) get section title style */
+.archive h1,
+.page__content h1 {
+  font-size: 1.5em;
+  font-weight: 700;
+  color: var(--global-text-color);
+  padding-bottom: 0.4em;
+  border-bottom: 3px solid var(--gt-accent);
+  display: inline-block;
+  margin-top: 2.5rem;
+  margin-bottom: 1rem;
+  width: 100%;
+}
+
+/* CV page h2s from markdown (project sub-headings) — clean card headers */
+.archive h2 {
+  font-size: 1.2em;
+  font-weight: 600;
+  color: var(--global-text-color);
+  border-bottom: none;
+  padding-bottom: 0;
+  margin-top: 1.5rem;
+  margin-bottom: 0.5rem;
+}
+
+
+/* ==========================================================================
+   17. SMOOTH TRANSITIONS for theme toggle
+   ========================================================================== */
+body,
+.masthead,
+.page__footer,
+.page .page__inner-wrap,
+.archive,
+.sidebar,
+.list__item .archive__item {
+  transition: background-color 0.3s ease, color 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+}
+
+
+/* ==========================================================================
+   18. PAGE META — cleaner date/tag styling
+   ========================================================================== */
+.page__meta {
+  color: var(--gt-muted);
+  font-size: 0.85em;
+
+  a {
+    color: var(--gt-accent);
+  }
+}
+
+.page__taxonomy-item {
+  border-radius: 20px;
+  border-color: var(--global-border-color);
+  font-size: 0.8em;
+  padding: 4px 12px;
+  transition: all 0.2s ease;
+
+  &:hover {
+    border-color: var(--gt-accent);
+    color: var(--gt-accent);
+  }
+}
+
+
+/* ==========================================================================
+   19. RESPONSIVE refinements
+   ========================================================================== */
+@media (max-width: 600px) {
+  #main {
+    margin-top: 1.5em;
+    padding-left: 1em;
+    padding-right: 1em;
+  }
+
+  .page__title,
+  .archive > h1.page__title {
+    font-size: 1.5em;
+  }
+}

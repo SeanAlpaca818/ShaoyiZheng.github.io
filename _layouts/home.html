@@ -1,0 +1,161 @@
+---
+layout: default
+---
+
+{% include base_path %}
+
+<!-- ========== HERO SECTION ========== -->
+<section class="home-hero" id="home-hero">
+  <a-waves class="home-hero__canvas" data-lines="high" data-mouse="true"></a-waves>
+  <div class="home-hero__overlay"></div>
+
+  <div class="home-hero__content">
+    <div class="home-hero__avatar">
+      <img src="{{ base_path }}/images/{{ site.author.avatar }}"
+           alt="{{ site.author.name }}" />
+    </div>
+
+    <h1 class="home-hero__name">{{ site.author.name }}</h1>
+    <p class="home-hero__affiliation">
+      Ph.D. Student &middot; {{ site.author.employer }}
+    </p>
+
+    <p class="home-hero__typing">
+      <span class="home-hero__typing-prefix">Research:&nbsp;</span>
+      <span class="home-hero__typing-text" id="typing-text"></span>
+      <span class="home-hero__cursor">|</span>
+    </p>
+
+    <div class="home-hero__links">
+      {% if site.author.email %}
+        <a href="mailto:{{ site.author.email }}" aria-label="Email" title="Email">
+          <i class="fas fa-envelope"></i>
+        </a>
+      {% endif %}
+      {% if site.author.googlescholar %}
+        <a href="{{ site.author.googlescholar }}" aria-label="Google Scholar" title="Google Scholar" target="_blank" rel="noopener">
+          <i class="fas fa-graduation-cap"></i>
+        </a>
+      {% endif %}
+      {% if site.author.github %}
+        <a href="https://github.com/{{ site.author.github }}" aria-label="GitHub" title="GitHub" target="_blank" rel="noopener">
+          <i class="fab fa-github"></i>
+        </a>
+      {% endif %}
+      {% if site.author.linkedin %}
+        <a href="{{ site.author.linkedin }}" aria-label="LinkedIn" title="LinkedIn" target="_blank" rel="noopener">
+          <i class="fab fa-linkedin"></i>
+        </a>
+      {% endif %}
+    </div>
+
+    <a href="#home-about" class="home-hero__scroll" aria-label="Scroll down">
+      <span class="home-hero__scroll-icon"></span>
+    </a>
+  </div>
+</section>
+
+<!-- ========== ABOUT SECTION ========== -->
+<section class="home-section home-about" id="home-about">
+  <div class="home-section__inner">
+    <h2 class="home-section__title">About Me</h2>
+    <div class="home-about__content">
+      {{ content }}
+    </div>
+  </div>
+</section>
+
+<!-- ========== PUBLICATIONS SECTION ========== -->
+{% assign pubs = site.publications | sort: "date" | reverse %}
+{% if pubs.size > 0 %}
+<section class="home-section home-publications" id="home-publications">
+  <div class="home-section__inner">
+    <h2 class="home-section__title">Selected Publications</h2>
+    <div class="home-pub-grid">
+      {% for pub in pubs %}
+      <a href="{{ base_path }}{{ pub.permalink }}" class="home-pub-card reveal">
+        <span class="home-pub-card__venue">{{ pub.venue }}</span>
+        <h3 class="home-pub-card__title">{{ pub.title }}</h3>
+        {% if pub.excerpt %}
+          <p class="home-pub-card__excerpt">{{ pub.excerpt | truncatewords: 30 }}</p>
+        {% endif %}
+        <span class="home-pub-card__link">Read more &rarr;</span>
+      </a>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+{% endif %}
+
+<!-- ========== TIMELINE SECTION ========== -->
+<section class="home-section home-timeline" id="home-timeline">
+  <div class="home-section__inner">
+    <h2 class="home-section__title">Research Timeline</h2>
+    <div class="timeline">
+
+      <div class="timeline__item reveal" data-type="education">
+        <div class="timeline__marker"></div>
+        <div class="timeline__body">
+          <span class="timeline__date">2023 &ndash; Present</span>
+          <h3 class="timeline__heading">Ph.D. in Computer Science</h3>
+          <p>New York University, Courant Institute of Mathematical Sciences. Advised by Prof.&nbsp;Shengjie&nbsp;Wang. Research on Efficient AI and generative models.</p>
+        </div>
+      </div>
+
+      <div class="timeline__item reveal" data-type="publication">
+        <div class="timeline__marker"></div>
+        <div class="timeline__body">
+          <span class="timeline__date">2025</span>
+          <h3 class="timeline__heading">HilbertA &mdash; Sparse Attention via Hilbert Curves</h3>
+          <p>Proposed Hilbert Attention for diffusion models achieving up to 4.17&times; speedup. Under review at ICLR&nbsp;2026.</p>
+        </div>
+      </div>
+
+      <div class="timeline__item reveal" data-type="publication">
+        <div class="timeline__marker"></div>
+        <div class="timeline__body">
+          <span class="timeline__date">2025</span>
+          <h3 class="timeline__heading">ToMA &mdash; Token Merge with Attention</h3>
+          <p>GPU-aligned token merging for diffusion models published at ICML&nbsp;2025. Up to 1.4&times; speedup on SDXL without quality loss.</p>
+        </div>
+      </div>
+
+      <div class="timeline__item reveal" data-type="industry">
+        <div class="timeline__marker"></div>
+        <div class="timeline__body">
+          <span class="timeline__date">2024</span>
+          <h3 class="timeline__heading">Tencent &mdash; Research Intern</h3>
+          <p>Applied Research Center, working on efficient generative model deployment.</p>
+        </div>
+      </div>
+
+      <div class="timeline__item reveal" data-type="publication">
+        <div class="timeline__marker"></div>
+        <div class="timeline__body">
+          <span class="timeline__date">2024</span>
+          <h3 class="timeline__heading">Sub-CP &mdash; Submodular Context Partitioning</h3>
+          <p>Context selection framework for in-context learning. Under review at ACL&nbsp;2026.</p>
+        </div>
+      </div>
+
+      <div class="timeline__item reveal" data-type="industry">
+        <div class="timeline__marker"></div>
+        <div class="timeline__body">
+          <span class="timeline__date">2022</span>
+          <h3 class="timeline__heading">SenseTime &mdash; Research Intern</h3>
+          <p>Research Group #21, contributing to computer vision research.</p>
+        </div>
+      </div>
+
+      <div class="timeline__item reveal" data-type="education">
+        <div class="timeline__marker"></div>
+        <div class="timeline__body">
+          <span class="timeline__date">2019 &ndash; 2023</span>
+          <h3 class="timeline__heading">B.S. in Computer Science</h3>
+          <p>New York University Shanghai. Minor in Mathematics.</p>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>

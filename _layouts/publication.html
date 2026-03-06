@@ -1,0 +1,73 @@
+---
+layout: default
+---
+
+{% include base_path %}
+
+<!-- ========== COMPACT HERO ========== -->
+<section class="ds-page-hero ds-page-hero--compact">
+  <a-waves class="ds-page-hero__canvas" data-lines="low" data-mouse="false"></a-waves>
+  <div class="ds-page-hero__overlay"></div>
+  <div class="ds-page-hero__content">
+    <div class="ds-page-hero__breadcrumb">
+      <a href="{{ base_path }}/publications/">Publications</a> &rarr;
+    </div>
+    <h1 class="ds-page-hero__title" style="font-size:2.2rem;">{{ page.title }}</h1>
+    {% if page.venue %}
+    <p class="ds-page-hero__subtitle">{{ page.venue }}{% if page.date %} &middot; {{ page.date | date: "%Y" }}{% endif %}</p>
+    {% endif %}
+  </div>
+</section>
+
+<!-- ========== CONTENT ========== -->
+<section class="ds-section">
+  <div class="ds-section__inner">
+    <div class="ds-content">
+      {{ content }}
+
+      {% if page.citation %}
+      <div class="ds-citation-block">
+        <strong style="color:var(--home-section-text);">Citation:</strong><br>
+        {{ page.citation }}
+      </div>
+      {% endif %}
+
+      {% if page.paperurl or page.slidesurl %}
+      <div class="ds-btn-group">
+        {% if page.paperurl %}
+        <a href="{{ page.paperurl }}" class="ds-btn ds-btn--primary" target="_blank" rel="noopener">
+          <i class="fas fa-file-pdf"></i> Paper
+        </a>
+        {% endif %}
+        {% if page.slidesurl %}
+        <a href="{{ page.slidesurl }}" class="ds-btn ds-btn--outline" target="_blank" rel="noopener">
+          <i class="fas fa-desktop"></i> Slides
+        </a>
+        {% endif %}
+      </div>
+      {% endif %}
+    </div>
+  </div>
+</section>
+
+<!-- ========== RELATED PUBLICATIONS ========== -->
+{% assign other_pubs = site.publications | sort: "date" | reverse | where_exp: "pub", "pub.url != page.url" %}
+{% if other_pubs.size > 0 %}
+<section class="ds-related">
+  <div class="ds-related__inner">
+    <h2 class="ds-related__title">Other Publications</h2>
+    <div class="ds-pub-grid reveal-stagger">
+      {% for pub in other_pubs %}
+      <a href="{{ base_path }}{{ pub.permalink }}" class="ds-pub-card reveal">
+        <span class="ds-pub-card__venue">{{ pub.venue }}</span>
+        <h3 class="ds-pub-card__title">{{ pub.title }}</h3>
+        {% if pub.excerpt %}
+          <p class="ds-pub-card__excerpt">{{ pub.excerpt | truncatewords: 20 }}</p>
+        {% endif %}
+        <span class="ds-pub-card__link">Read more &rarr;</span>
+      </a>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+{% endif %}

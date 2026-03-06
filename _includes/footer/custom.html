@@ -16,4 +16,17 @@
     await mermaid.run({querySelector:'code.language-mermaid'});
 </script>
 
+<!-- Wave canvas Web Component (loaded globally) -->
+<script src="{{ site.baseurl }}/assets/js/waves.js"></script>
+
+<!-- Homepage JS (typing, scroll reveal) -->
+{% if page.layout == "home" %}
+<script src="{{ site.baseurl }}/assets/js/home.js"></script>
+{% endif %}
+
+<!-- Inner page JS (scroll reveal, smooth scroll) -->
+{% if page.layout == "cv" or page.layout == "publications" or page.layout == "publication" %}
+<script src="{{ site.baseurl }}/assets/js/inner-pages.js"></script>
+{% endif %}
+
 <!-- end custom footer snippets -->

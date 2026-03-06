@@ -1,8 +1,9 @@
 ---
+layout: home
 permalink: /
 title: "Welcome to Shaoyi(Sean) Zheng's Homepage"
-author_profile: true
-redirect_from: 
+author_profile: false
+redirect_from:
   - /about/
   - /about.html
 keywords: "Shaoyi Zheng, Sean Zheng, NYU, Computer Science, PhD, Efficient AI, Generative Models, Diffusion Models, Machine Learning, Deep Learning, Model Acceleration, NYU Courant, Shengjie Wang"
