@@ -23,7 +23,7 @@ repository               : "SeanAlpaca818/shaoyizheng.github.io"
 #               Additional customization can be done by editing /_includes/author-profile.html
 author:
   # Biographic information
-  avatar           : "Shaoyi_profile.png"
+  avatar           : "main_page.jpg"
   name             : "Shaoyi(Sean) Zheng"
   pronouns         : # example: "she/her"  
   bio              : "Efficient AI in generative models"
