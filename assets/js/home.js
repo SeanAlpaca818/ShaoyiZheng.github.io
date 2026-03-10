@@ -8,12 +8,9 @@
 
   /* ---------- Typing Effect ---------- */
   var keywords = [
-    'Efficient AI',
-    'Diffusion Models',
-    'Sparse Attention',
-    'Token Merging',
-    'Model Acceleration',
-    'Generative Models'
+    'Efficient Generative AI',
+    'Embodied AI',
+    'World Model'
   ];
 
   function initTyping() {

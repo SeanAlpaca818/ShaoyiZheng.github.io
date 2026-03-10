@@ -1,0 +1,25 @@
+- file: B00005473FR1767414101_denoised_p.JPG
+  camera: Hasselblad X2D II 100C
+  date: 2026-01-03
+  location: Aranya, Hebei, China
+  focal: 100mm
+  iso: 50
+  shutter: 1/800s
+
+- file: 3266D009-1711-4C22-8E4E-0864710E188C_1_201_a.jpeg
+  camera: Nikon Z fc
+  date: 2023-04-27
+  location: Dunhuang, Gansu, China
+  focal: 160mm
+  iso: 200
+  shutter: 1/2500s
+  aperture: f/5.6
+
+- file: 2FD4D2B4-E7B4-4145-A681-341FFC347401_1_105_c.jpeg
+  camera: Nikon Z fc
+  date: 2023-04-27
+  location: Dunhuang, Gansu, China
+  focal: 170mm
+  iso: 200
+  shutter: 1/1250s
+  aperture: f/5.6

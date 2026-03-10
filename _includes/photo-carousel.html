@@ -1,0 +1,35 @@
+{% assign photos = site.data.photography %}
+{% if photos.size > 0 %}
+<div class="carousel reveal" data-interval="30000">
+  <div class="carousel__viewport">
+    {% for p in photos %}
+    <div class="carousel__slide{% if forloop.first %} carousel__slide--active{% endif %}"
+         data-camera="{{ p.camera }}" data-location="{{ p.location }}" data-date="{{ p.date }}">
+      <img src="{{ base_path }}/images/photography/{{ p.file }}" alt="{{ p.location }}" loading="lazy" />
+    </div>
+    {% endfor %}
+  </div>
+
+  <button class="carousel__btn carousel__btn--prev" aria-label="Previous"><i class="fas fa-chevron-left"></i></button>
+  <button class="carousel__btn carousel__btn--next" aria-label="Next"><i class="fas fa-chevron-right"></i></button>
+
+  <div class="carousel__dots">
+    {% for p in photos %}
+    <button class="carousel__dot{% if forloop.first %} carousel__dot--active{% endif %}" aria-label="Go to slide {{ forloop.index }}"></button>
+    {% endfor %}
+  </div>
+
+  <div class="carousel__info">
+    <div class="carousel__info-left">
+      <span class="carousel__info-item carousel__info-camera"><i class="fas fa-camera"></i> {{ photos[0].camera }}</span>
+      <span class="carousel__info-item carousel__info-location"><i class="fas fa-map-marker-alt"></i> {{ photos[0].location }}</span>
+      <span class="carousel__info-item carousel__info-date"><i class="fas fa-calendar-alt"></i> {{ photos[0].date }}</span>
+    </div>
+    <div class="carousel__info-right">
+      <span class="carousel__counter"><span class="carousel__current">1</span> / {{ photos.size }}</span>
+    </div>
+  </div>
+</div>
+{% else %}
+<p class="reveal" style="color:var(--home-card-muted); margin-top:1.5rem;">Photos coming soon!</p>
+{% endif %}

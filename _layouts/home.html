@@ -65,21 +65,39 @@ layout: default
   </div>
 </section>
 
+<!-- ========== NEWS SECTION ========== -->
+<section class="home-section home-news" id="home-news">
+  <div class="home-section__inner">
+    <h2 class="home-section__title">News</h2>
+    <ul class="home-news-list">
+      <li class="home-news-item reveal">
+        <span class="home-news-date">03-10-2026</span>
+        <span class="home-news-text">Excited to join <strong>ByteDance (TikTok)</strong> as a Research Intern this summer, based in San Jose!</span>
+      </li>
+    </ul>
+  </div>
+</section>
+
 <!-- ========== PUBLICATIONS SECTION ========== -->
 {% assign pubs = site.publications | sort: "date" | reverse %}
 {% if pubs.size > 0 %}
 <section class="home-section home-publications" id="home-publications">
   <div class="home-section__inner">
     <h2 class="home-section__title">Selected Publications</h2>
-    <div class="home-pub-grid">
+    <div class="home-pub-list">
+      {% assign prev_year = "" %}
       {% for pub in pubs %}
-      <a href="{{ base_path }}{{ pub.permalink }}" class="home-pub-card reveal">
-        <span class="home-pub-card__venue">{{ pub.venue }}</span>
-        <h3 class="home-pub-card__title">{{ pub.title }}</h3>
-        {% if pub.excerpt %}
-          <p class="home-pub-card__excerpt">{{ pub.excerpt | truncatewords: 30 }}</p>
+        {% assign pub_year = pub.date | date: "%Y" %}
+        {% if pub_year != prev_year %}
+          <div class="home-pub-year">{{ pub_year }}</div>
+          {% assign prev_year = pub_year %}
         {% endif %}
-        <span class="home-pub-card__link">Read more &rarr;</span>
+      <a href="{{ base_path }}{{ pub.permalink }}" class="home-pub-row reveal">
+        <h3 class="home-pub-row__title">{{ pub.title }}</h3>
+        <div class="home-pub-row__meta">
+          {% if pub.authors %}<span class="home-pub-row__authors">{{ pub.authors | replace: "Shaoyi Zheng", "<strong>Shaoyi Zheng</strong>" }}</span>{% endif %}
+          <span class="home-pub-row__venue">{{ pub.venue }}</span>
+        </div>
       </a>
       {% endfor %}
     </div>
@@ -87,75 +105,34 @@ layout: default
 </section>
 {% endif %}
 
-<!-- ========== TIMELINE SECTION ========== -->
-<section class="home-section home-timeline" id="home-timeline">
-  <div class="home-section__inner">
-    <h2 class="home-section__title">Research Timeline</h2>
-    <div class="timeline">
-
-      <div class="timeline__item reveal" data-type="education">
-        <div class="timeline__marker"></div>
-        <div class="timeline__body">
-          <span class="timeline__date">2023 &ndash; Present</span>
-          <h3 class="timeline__heading">Ph.D. in Computer Science</h3>
-          <p>New York University, Courant Institute of Mathematical Sciences. Advised by Prof.&nbsp;Shengjie&nbsp;Wang. Research on Efficient AI and generative models.</p>
+<!-- ========== PHOTOGRAPHY SECTION ========== -->
+<section class="home-section home-photography" id="home-photography">
+  <div class="photo-layout">
+    <div class="photo-layout__text reveal">
+      <h2 class="photo-layout__title">Photography</h2>
+      <p class="photo-layout__body">A gearhead beginner.</p>
+      <div class="photo-layout__gear">
+        <div class="photo-layout__gear-item">
+          <span class="photo-layout__gear-label">Current</span>
+          <span class="photo-layout__gear-name">Hasselblad X2D II</span>
+          <span class="photo-layout__gear-detail">XCD 35&ndash;75mm f/3.5&ndash;4.5</span>
+        </div>
+        <div class="photo-layout__gear-item">
+          <span class="photo-layout__gear-label">Started with</span>
+          <span class="photo-layout__gear-name">Nikon Z<sub>fc</sub></span>
         </div>
       </div>
-
-      <div class="timeline__item reveal" data-type="publication">
-        <div class="timeline__marker"></div>
-        <div class="timeline__body">
-          <span class="timeline__date">2025</span>
-          <h3 class="timeline__heading">HilbertA &mdash; Sparse Attention via Hilbert Curves</h3>
-          <p>Proposed Hilbert Attention for diffusion models achieving up to 4.17&times; speedup. Under review at ICLR&nbsp;2026.</p>
-        </div>
-      </div>
-
-      <div class="timeline__item reveal" data-type="publication">
-        <div class="timeline__marker"></div>
-        <div class="timeline__body">
-          <span class="timeline__date">2025</span>
-          <h3 class="timeline__heading">ToMA &mdash; Token Merge with Attention</h3>
-          <p>GPU-aligned token merging for diffusion models published at ICML&nbsp;2025. Up to 1.4&times; speedup on SDXL without quality loss.</p>
-        </div>
-      </div>
-
-      <div class="timeline__item reveal" data-type="industry">
-        <div class="timeline__marker"></div>
-        <div class="timeline__body">
-          <span class="timeline__date">2024</span>
-          <h3 class="timeline__heading">Tencent &mdash; Research Intern</h3>
-          <p>Applied Research Center, working on efficient generative model deployment.</p>
-        </div>
-      </div>
-
-      <div class="timeline__item reveal" data-type="publication">
-        <div class="timeline__marker"></div>
-        <div class="timeline__body">
-          <span class="timeline__date">2024</span>
-          <h3 class="timeline__heading">Sub-CP &mdash; Submodular Context Partitioning</h3>
-          <p>Context selection framework for in-context learning. Under review at ACL&nbsp;2026.</p>
-        </div>
-      </div>
-
-      <div class="timeline__item reveal" data-type="industry">
-        <div class="timeline__marker"></div>
-        <div class="timeline__body">
-          <span class="timeline__date">2022</span>
-          <h3 class="timeline__heading">SenseTime &mdash; Research Intern</h3>
-          <p>Research Group #21, contributing to computer vision research.</p>
-        </div>
-      </div>
-
-      <div class="timeline__item reveal" data-type="education">
-        <div class="timeline__marker"></div>
-        <div class="timeline__body">
-          <span class="timeline__date">2019 &ndash; 2023</span>
-          <h3 class="timeline__heading">B.S. in Computer Science</h3>
-          <p>New York University Shanghai. Minor in Mathematics.</p>
-        </div>
-      </div>
-
+      <p class="photo-layout__quote">&ldquo;If a shot looks good, credit the camera.<br>If it doesn&rsquo;t, that&rsquo;s on me.&rdquo;</p>
+      <p class="photo-layout__cta">Feedback &amp; tips always welcome.</p>
+    </div>
+    <div class="photo-layout__carousel">
+      {% include photo-carousel.html %}
     </div>
   </div>
 </section>
+
+<!-- TIMELINE SECTION (disabled for now)
+<section class="home-section home-timeline" id="home-timeline">
+  ...
+</section>
+-->

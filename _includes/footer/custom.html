@@ -32,4 +32,52 @@
 <script src="{{ site.baseurl }}/assets/js/inner-pages.js"></script>
 {% endif %}
 
+<!-- Photo carousel -->
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+  document.querySelectorAll(".carousel").forEach(function (el) {
+    var slides = el.querySelectorAll(".carousel__slide");
+    var dots = el.querySelectorAll(".carousel__dot");
+    var counter = el.querySelector(".carousel__current");
+    var infoCamera = el.querySelector(".carousel__info-camera");
+    var infoLocation = el.querySelector(".carousel__info-location");
+    var infoDate = el.querySelector(".carousel__info-date");
+    if (slides.length < 2) return;
+
+    var idx = 0;
+    var interval = parseInt(el.dataset.interval) || 5000;
+    var timer;
+
+    function updateInfo(i) {
+      var s = slides[i];
+      if (infoCamera) infoCamera.innerHTML = '<i class="fas fa-camera"></i> ' + (s.dataset.camera || '');
+      if (infoLocation) infoLocation.innerHTML = '<i class="fas fa-map-marker-alt"></i> ' + (s.dataset.location || '');
+      if (infoDate) infoDate.innerHTML = '<i class="fas fa-calendar-alt"></i> ' + (s.dataset.date || '');
+    }
+
+    function go(n) {
+      slides[idx].classList.remove("carousel__slide--active");
+      if (dots[idx]) dots[idx].classList.remove("carousel__dot--active");
+      idx = (n + slides.length) % slides.length;
+      slides[idx].classList.add("carousel__slide--active");
+      if (dots[idx]) dots[idx].classList.add("carousel__dot--active");
+      if (counter) counter.textContent = idx + 1;
+      updateInfo(idx);
+    }
+
+    function startAuto() { timer = setInterval(function () { go(idx + 1); }, interval); }
+    function stopAuto() { clearInterval(timer); }
+
+    el.querySelector(".carousel__btn--prev").addEventListener("click", function () { stopAuto(); go(idx - 1); startAuto(); });
+    el.querySelector(".carousel__btn--next").addEventListener("click", function () { stopAuto(); go(idx + 1); startAuto(); });
+    dots.forEach(function (dot, i) { dot.addEventListener("click", function () { stopAuto(); go(i); startAuto(); }); });
+
+    el.addEventListener("mouseenter", stopAuto);
+    el.addEventListener("mouseleave", startAuto);
+
+    startAuto();
+  });
+});
+</script>
+
 <!-- end custom footer snippets -->
