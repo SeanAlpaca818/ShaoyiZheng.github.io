@@ -633,4 +633,153 @@
   color: var(--home-section-text);
 }
 
+/* ---------- Publications: chronological line list ---------- */
+.ds-pub-line {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.ds-pub-line__row {
+  display: grid;
+  grid-template-columns: 4.5rem 1fr;
+  gap: 1rem;
+  align-items: baseline;
+  padding: 0.75rem 0.5rem;
+  text-decoration: none;
+  color: var(--home-section-text);
+  border-bottom: 1px solid var(--home-card-border);
+  transition: background 0.18s ease, color 0.18s ease;
+
+  .ds-pub-line li:first-child & {
+    border-top: 1px solid var(--home-card-border);
+  }
+
+  &:hover {
+    background: var(--home-card-bg);
+    color: var(--home-accent);
+  }
+}
+
+.ds-pub-line__year {
+  font-family: $header-font-family;
+  font-size: $type-size-6;
+  font-weight: 700;
+  color: var(--home-accent);
+  letter-spacing: 0.02em;
+}
+
+.ds-pub-line__main {
+  display: flex;
+  flex-direction: column;
+  gap: 0.15rem;
+  min-width: 0;
+}
+
+.ds-pub-line__title {
+  font-family: $header-font-family;
+  font-size: $type-size-5;
+  font-weight: 600;
+  line-height: 1.35;
+  color: inherit;
+}
+
+.ds-pub-line__meta {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 1rem;
+
+  @media (max-width: 640px) {
+    flex-direction: column;
+    gap: 0.1rem;
+  }
+}
+
+.ds-pub-line__authors {
+  font-size: $type-size-7;
+  color: var(--home-card-muted);
+  line-height: 1.4;
+}
+
+.ds-pub-line__venue {
+  flex-shrink: 0;
+  font-size: $type-size-7;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: var(--home-accent);
+  white-space: nowrap;
+}
+
+/* ---------- CV Resume PDF viewer ---------- */
+.cv-resume__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  margin-bottom: 1.5rem;
+  justify-content: flex-end;
+}
+
+.cv-resume__btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.55rem 1.1rem;
+  border-radius: 999px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  text-decoration: none;
+  color: var(--home-accent);
+  background: color-mix(in srgb, var(--home-accent) 10%, transparent);
+  border: 1px solid color-mix(in srgb, var(--home-accent) 35%, transparent);
+  transition: background 0.2s ease, color 0.2s ease, border-color 0.2s ease, transform 0.15s ease;
+
+  &:hover, &:focus {
+    background: var(--home-accent);
+    color: var(--home-section-bg);
+    border-color: var(--home-accent);
+    transform: translateY(-1px);
+  }
+
+  i {
+    font-size: 0.8em;
+  }
+}
+
+.cv-resume__viewer {
+  position: relative;
+  width: 100%;
+  background: var(--home-card-bg, var(--home-section-bg));
+  border: 1px solid var(--home-card-border, color-mix(in srgb, var(--home-accent) 20%, transparent));
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 6px 24px color-mix(in srgb, var(--home-accent) 12%, transparent);
+}
+
+.cv-resume__frame {
+  display: block;
+  width: 100%;
+  height: 85vh;
+  min-height: 600px;
+  border: 0;
+  background: #f5f5f5;
+}
+
+@media (max-width: 600px) {
+  .cv-resume__frame {
+    height: 70vh;
+    min-height: 480px;
+  }
+
+  .cv-resume__actions {
+    justify-content: stretch;
+  }
+
+  .cv-resume__btn {
+    flex: 1;
+    justify-content: center;
+  }
+}
+
 

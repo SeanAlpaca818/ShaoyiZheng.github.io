@@ -78,61 +78,32 @@ layout: default
   </div>
 </section>
 
-<!-- ========== PUBLICATIONS SECTION ========== -->
-{% assign pubs = site.publications | sort: "date" | reverse %}
-{% if pubs.size > 0 %}
-<section class="home-section home-publications" id="home-publications">
+<!-- ========== TIMELINE SECTION ========== -->
+{% if site.data.timeline %}
+<section class="home-section home-timeline" id="home-timeline">
   <div class="home-section__inner">
-    <h2 class="home-section__title">Selected Publications</h2>
-    <div class="home-pub-list">
-      {% assign prev_year = "" %}
-      {% for pub in pubs %}
-        {% assign pub_year = pub.date | date: "%Y" %}
-        {% if pub_year != prev_year %}
-          <div class="home-pub-year">{{ pub_year }}</div>
-          {% assign prev_year = pub_year %}
-        {% endif %}
-      <a href="{{ base_path }}{{ pub.permalink }}" class="home-pub-row reveal">
-        <h3 class="home-pub-row__title">{{ pub.title }}</h3>
-        <div class="home-pub-row__meta">
-          {% if pub.authors %}<span class="home-pub-row__authors">{{ pub.authors | replace: "Shaoyi Zheng", "<strong>Shaoyi Zheng</strong>" }}</span>{% endif %}
-          <span class="home-pub-row__venue">{{ pub.venue }}</span>
+    <h2 class="home-section__title">Journey</h2>
+    <ol class="timeline" id="js-timeline">
+      {% for item in site.data.timeline %}
+      <li class="timeline__item reveal" data-type="{{ item.type }}">
+        <span class="timeline__marker"></span>
+        <div class="timeline__body">
+          <span class="timeline__date">{{ item.date }}</span>
+          <h3 class="timeline__heading">
+            {% if item.link %}<a href="{{ base_path }}{{ item.link }}">{{ item.title }}</a>{% else %}{{ item.title }}{% endif %}
+          </h3>
+          {% if item.detail %}<p>{{ item.detail }}</p>{% endif %}
+          {% if item.tags %}
+          <div class="timeline__tags">
+            {% for tag in item.tags %}<span class="timeline__tag">{{ tag }}</span>{% endfor %}
+          </div>
+          {% endif %}
         </div>
-      </a>
+      </li>
       {% endfor %}
-    </div>
+    </ol>
   </div>
 </section>
 {% endif %}
 
-<!-- ========== PHOTOGRAPHY SECTION ========== -->
-<section class="home-section home-photography" id="home-photography">
-  <div class="photo-layout">
-    <div class="photo-layout__text reveal">
-      <h2 class="photo-layout__title">Photography</h2>
-      <p class="photo-layout__body">A gearhead beginner.</p>
-      <div class="photo-layout__gear">
-        <div class="photo-layout__gear-item">
-          <span class="photo-layout__gear-label">Current</span>
-          <span class="photo-layout__gear-name">Hasselblad X2D II</span>
-          <span class="photo-layout__gear-detail">XCD 35&ndash;75mm f/3.5&ndash;4.5</span>
-        </div>
-        <div class="photo-layout__gear-item">
-          <span class="photo-layout__gear-label">Started with</span>
-          <span class="photo-layout__gear-name">Nikon Z<sub>fc</sub></span>
-        </div>
-      </div>
-      <p class="photo-layout__quote">&ldquo;If a shot looks good, credit the camera.<br>If it doesn&rsquo;t, that&rsquo;s on me.&rdquo;</p>
-      <p class="photo-layout__cta">Feedback &amp; tips always welcome.</p>
-    </div>
-    <div class="photo-layout__carousel">
-      {% include photo-carousel.html %}
-    </div>
-  </div>
-</section>
 
-<!-- TIMELINE SECTION (disabled for now)
-<section class="home-section home-timeline" id="home-timeline">
-  ...
-</section>
--->

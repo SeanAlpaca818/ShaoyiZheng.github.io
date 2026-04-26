@@ -22,57 +22,27 @@ author_profile: false
   </div>
 </section>
 
-<!-- ========== PUBLICATION SECTIONS BY CATEGORY ========== -->
-{% if site.publication_category %}
-  {% for category in site.publication_category %}
-    {% assign cat_pubs = site.publications | sort: "date" | reverse | where: "category", category[0] %}
-    {% if cat_pubs.size > 0 %}
-    <section class="ds-section">
-      <div class="ds-section__inner">
-        <h2 class="ds-section__title">{{ category[1].title }}</h2>
-
-        <div class="reveal-stagger">
-          {% for pub in cat_pubs %}
-          <a href="{{ base_path }}{{ pub.permalink }}" class="ds-pub-card ds-pub-card--wide reveal" style="margin-bottom:1.2rem;display:flex;">
-            <div class="ds-pub-card__year">{{ pub.date | date: "%Y" }}</div>
-            <div class="ds-pub-card__details">
-              <span class="ds-pub-card__venue">{{ pub.venue }}</span>
-              <h3 class="ds-pub-card__title">{{ pub.title }}</h3>
-              {% if pub.excerpt %}
-                <p class="ds-pub-card__excerpt">{{ pub.excerpt | truncatewords: 35 }}</p>
-              {% endif %}
-              <span class="ds-pub-card__link">Read more &rarr;</span>
-            </div>
-          </a>
-          {% endfor %}
-        </div>
-      </div>
-    </section>
-    {% endif %}
-  {% endfor %}
-{% else %}
-  {% assign all_pubs = site.publications | sort: "date" | reverse %}
-  {% if all_pubs.size > 0 %}
-  <section class="ds-section">
-    <div class="ds-section__inner">
-      <h2 class="ds-section__title">All Publications</h2>
-
-      <div class="reveal-stagger">
-        {% for pub in all_pubs %}
-        <a href="{{ base_path }}{{ pub.permalink }}" class="ds-pub-card ds-pub-card--wide reveal" style="margin-bottom:1.2rem;display:flex;">
-          <div class="ds-pub-card__year">{{ pub.date | date: "%Y" }}</div>
-          <div class="ds-pub-card__details">
-            <span class="ds-pub-card__venue">{{ pub.venue }}</span>
-            <h3 class="ds-pub-card__title">{{ pub.title }}</h3>
-            {% if pub.excerpt %}
-              <p class="ds-pub-card__excerpt">{{ pub.excerpt | truncatewords: 35 }}</p>
-            {% endif %}
-            <span class="ds-pub-card__link">Read more &rarr;</span>
-          </div>
+<!-- ========== PUBLICATIONS (chronological) ========== -->
+{% assign all_pubs = site.publications | sort: "date" | reverse %}
+{% if all_pubs.size > 0 %}
+<section class="ds-section">
+  <div class="ds-section__inner">
+    <ul class="ds-pub-line">
+      {% for pub in all_pubs %}
+      <li>
+        <a href="{{ base_path }}{{ pub.permalink }}" class="ds-pub-line__row reveal">
+          <span class="ds-pub-line__year">{{ pub.date | date: "%Y" }}</span>
+          <span class="ds-pub-line__main">
+            <span class="ds-pub-line__title">{{ pub.title }}</span>
+            <span class="ds-pub-line__meta">
+              {% if pub.authors %}<span class="ds-pub-line__authors">{{ pub.authors | replace: "Shaoyi Zheng", "<strong>Shaoyi Zheng</strong>" }}</span>{% endif %}
+              <span class="ds-pub-line__venue">{{ pub.venue }}</span>
+            </span>
+          </span>
         </a>
-        {% endfor %}
-      </div>
-    </div>
-  </section>
-  {% endif %}
+      </li>
+      {% endfor %}
+    </ul>
+  </div>
+</section>
 {% endif %}

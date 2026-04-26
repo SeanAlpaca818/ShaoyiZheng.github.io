@@ -8,9 +8,9 @@
 
   /* ---------- Typing Effect ---------- */
   var keywords = [
-    'Efficient Generative AI',
-    'Embodied AI',
-    'World Model'
+    'Efficiency AI ⚡️',
+    'Embodied AI 🤖',
+    'World Model 🌍'
   ];
 
   function initTyping() {
