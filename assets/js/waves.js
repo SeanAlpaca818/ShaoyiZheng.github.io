@@ -3,11 +3,15 @@
    Inspired by wodniack.dev. Configurable via HTML attributes:
      data-lines  = "high" | "low"   (line density)
      data-mouse  = "true" | "false" (mouse/touch interaction)
-     data-color  = CSS color        (default: rgba(56,189,248,0.4))
+     data-color  = CSS color        (optional; omit to track the --wave-color
+                                    CSS property, which flips with the theme)
    ================================================================= */
 
 (function () {
   'use strict';
+
+  /* Fallback only — the live value comes from the --wave-color CSS property. */
+  var DEFAULT_COLOR = 'rgba(167,193,217,0.38)';
 
   /* ---------- Color conversion helpers ---------- */
   function rgbToHsl(r, g, b) {
@@ -99,10 +103,13 @@
     el._mouseY = -9999;
     el._lines = [];
     el._isVisible = true;
+    el._baseGap = 15;
     el._gap = 15;
+    el._lineWidth = 1;
     el._mouseEnabled = false;
-    el._strokeColor = 'rgba(56,189,248,0.4)';
+    el._strokeColor = DEFAULT_COLOR;
     el._lastColor = '';
+    el._themeObserver = null;
     el._resizeTimer = null;
     return el;
   }
@@ -110,14 +117,52 @@
   AWaves.prototype = Object.create(HTMLElement.prototype);
   AWaves.prototype.constructor = AWaves;
 
+  /* Pull stroke color, line width and line density from CSS custom properties
+     so the canvas re-tunes itself when the theme flips: dark lines on the white
+     hero, and thicker + sparser white lines on the black one. An explicit
+     data-color attribute still wins for color. */
+  AWaves.prototype._refreshStyle = function () {
+    var cs;
+    try { cs = getComputedStyle(document.documentElement); } catch (e) { return; }
+
+    function num(prop, fallback) {
+      var n = parseFloat(cs.getPropertyValue(prop));
+      return (isFinite(n) && n > 0) ? n : fallback;
+    }
+
+    var attr = this.getAttribute('data-color');
+    this._strokeColor = attr || (cs.getPropertyValue('--wave-color').trim() || DEFAULT_COLOR);
+    this._lineWidth = num('--wave-line-width', 1);
+
+    // Density: scale the base gap. Bigger gap => fewer lines.
+    var gap = Math.max(4, Math.round(this._baseGap * num('--wave-gap-scale', 1)));
+    if (gap !== this._gap) {
+      this._gap = gap;
+      if (this._canvas) this._buildLines();   // geometry changed, rebuild
+    }
+  };
+
   AWaves.prototype.connectedCallback = function () {
     var self = this;
 
     // Read attributes
     var linesAttr = this.getAttribute('data-lines') || 'high';
-    this._gap = linesAttr === 'low' ? 24 : 12;
+    this._baseGap = linesAttr === 'low' ? 24 : 12;
+    this._gap = this._baseGap;
     this._mouseEnabled = this.getAttribute('data-mouse') === 'true';
-    this._strokeColor = this.getAttribute('data-color') || 'rgba(56,189,248,0.4)';
+    this._refreshStyle();
+
+    // The hero background flips with the theme, so re-read --wave-color
+    // whenever data-theme changes or the lines vanish against the new bg.
+    if (!this.getAttribute('data-color') && 'MutationObserver' in window) {
+      this._themeObserver = new MutationObserver(function () {
+        self._refreshStyle();
+      });
+      this._themeObserver.observe(document.documentElement, {
+        attributes: true,
+        attributeFilter: ['data-theme']
+      });
+    }
 
     // Create canvas
     this._canvas = document.createElement('canvas');
@@ -214,7 +259,7 @@
     var mouseActive = this._mouseEnabled && mouseX > -9000;
     var mouseRadius = 160;
 
-    ctx.lineWidth = 1;
+    ctx.lineWidth = this._lineWidth || 1;
 
     var sc = this._strokeColor;
 
@@ -285,6 +330,7 @@
   };
 
   AWaves.prototype.disconnectedCallback = function () {
+    if (this._themeObserver) { this._themeObserver.disconnect(); this._themeObserver = null; }
     if (this._animId) {
       cancelAnimationFrame(this._animId);
       this._animId = null;

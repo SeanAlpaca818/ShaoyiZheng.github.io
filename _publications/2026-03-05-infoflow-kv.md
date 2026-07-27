@@ -2,10 +2,11 @@
 title: "InfoFlow KV: Information-Flow-Aware KV Recomputation for Long Context"
 collection: publications
 category: conferences
-permalink: /publication/2026-03-05-infoflow-kv
 excerpt: "Proposed a method that casts selective KV recomputation as an information flow problem, using attention-norm signals to identify tokens that are both semantically relevant and structurally capable of propagating information. Introduced information-flow-guided chunk reordering and demonstrated improvements across language and vision-language model benchmarks for retrieval-augmented generation with extended contexts."
 date: 2026-03-05
 venue: "ICML 2026"
+year: "2026"
+arxiv: "https://arxiv.org/abs/2603.05353"
 authors: "Shaoyi Zheng*, Xin Teng*, Canyu Zhang*, Danyang Zhuo, Tianyi Zhou, Shengjie Wang"
 citation: 'Shaoyi Zheng*, Xin Teng*, Canyu Zhang*, Danyang Zhuo, Tianyi Zhou, Shengjie Wang. "InfoFlow KV: Information-Flow-Aware KV Recomputation for Long Context." <i>International Conference on Machine Learning (ICML)</i>, 2026.'
 tags: [efficient-ai]

@@ -22,27 +22,36 @@ author_profile: false
   </div>
 </section>
 
-<!-- ========== PUBLICATIONS (chronological) ========== -->
+<!-- ========== PUBLICATIONS (grouped by year, newest first) ========== -->
+{% comment %}
+  Grouped on the explicit `year` field, not on `date` — a paper's venue year can
+  differ from its arXiv date (e.g. HilbertA: posted 2025, ICML 2026).
+{% endcomment %}
 {% assign all_pubs = site.publications | sort: "date" | reverse %}
+{% assign years = all_pubs | group_by: "year" | sort: "name" | reverse %}
 {% if all_pubs.size > 0 %}
 <section class="ds-section">
   <div class="ds-section__inner">
-    <ul class="ds-pub-line">
-      {% for pub in all_pubs %}
-      <li>
-        <a href="{{ base_path }}{{ pub.permalink }}" class="ds-pub-line__row reveal">
-          <span class="ds-pub-line__year">{{ pub.date | date: "%Y" }}</span>
-          <span class="ds-pub-line__main">
-            <span class="ds-pub-line__title">{{ pub.title }}</span>
-            <span class="ds-pub-line__meta">
-              {% if pub.authors %}<span class="ds-pub-line__authors">{{ pub.authors | replace: "Shaoyi Zheng", "<strong>Shaoyi Zheng</strong>" }}</span>{% endif %}
-              <span class="ds-pub-line__venue">{{ pub.venue }}</span>
+    {% for year in years %}
+    <div class="ds-pub-year">
+      <h2 class="ds-pub-year__heading reveal">{{ year.name }}</h2>
+      <ul class="ds-pub-line">
+        {% for pub in year.items %}
+        <li>
+          <a href="{{ pub.arxiv }}" class="ds-pub-line__row reveal" target="_blank" rel="noopener">
+            <span class="ds-pub-line__main">
+              <h3 class="ds-pub-line__title">{{ pub.title }}</h3>
+              <span class="ds-pub-line__meta">
+                {% if pub.authors %}<span class="ds-pub-line__authors">{{ pub.authors | replace: "Shaoyi Zheng", "<span class='ds-pub-line__me'>Shaoyi Zheng</span>" }}</span>{% endif %}
+                <span class="ds-pub-line__venue">{{ pub.venue }}</span>
+              </span>
             </span>
-          </span>
-        </a>
-      </li>
-      {% endfor %}
-    </ul>
+          </a>
+        </li>
+        {% endfor %}
+      </ul>
+    </div>
+    {% endfor %}
   </div>
 </section>
 {% endif %}

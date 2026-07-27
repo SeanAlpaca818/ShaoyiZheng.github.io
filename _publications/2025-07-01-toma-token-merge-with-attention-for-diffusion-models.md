@@ -2,10 +2,11 @@
 title: "ToMA: Token Merge with Attention for Diffusion Models"
 collection: publications
 category: conferences
-permalink: /publication/2025-07-01-toma-token-merge-with-attention-for-diffusion-models
 excerpt: 'ToMA is a GPU‑aligned token merging framework for diffusion models, reformulating token merging as an attention‑like linear transformation with invertible unmerge to accelerate diffusion models without degrading quality, using submodular token selection and GPU‑efficient operations.'
 date: 2025-07-01
-venue: 'ICML 2025, PMLR 267:40930–40951'
+venue: "ICML 2025"
+year: "2025"
+arxiv: "https://arxiv.org/abs/2509.10918"
 authors: "Shaoyi Zheng*, Wenbo Lu*, Yuxuan Xia, Shengjie Wang"
 tags: [efficient-ai]
 citation: 'Zheng, S.*, Lu, W.*, Xia, Y., &amp; Wang, S. (2025). &quot;ToMA: Token Merge with Attention for Diffusion Models.&quot; <i>ICML 2025</i>, PMLR 267:40930–40951.'

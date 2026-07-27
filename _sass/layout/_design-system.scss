@@ -56,7 +56,7 @@
   line-height: 1.5;
 
   a {
-    color: var(--home-accent);
+    color: var(--home-hero-accent);
     text-decoration: none;
     &:hover { text-decoration: underline; }
   }
@@ -68,7 +68,7 @@
   margin-bottom: 1rem;
 
   a {
-    color: var(--home-accent);
+    color: var(--home-hero-accent);
     text-decoration: none;
     &:hover { text-decoration: underline; }
   }
@@ -116,106 +116,6 @@
 @media (max-width: $small) {
   .ds-section {
     padding: 3rem 1rem;
-  }
-}
-
-
-/* ---------- Timeline ---------- */
-.ds-timeline {
-  position: relative;
-  padding-left: 2rem;
-
-  &::before {
-    content: '';
-    position: absolute;
-    left: 7px;
-    top: 0;
-    bottom: 0;
-    width: 2px;
-    background: var(--home-timeline-line);
-  }
-}
-
-.ds-timeline__item {
-  position: relative;
-  padding-bottom: 2.5rem;
-
-  &:last-child { padding-bottom: 0; }
-}
-
-.ds-timeline__marker {
-  position: absolute;
-  left: -2rem;
-  top: 0.25rem;
-  width: 16px;
-  height: 16px;
-  border-radius: 50%;
-  border: 3px solid var(--home-tl-pub);
-  background: var(--home-section-bg);
-  z-index: 1;
-
-  .ds-timeline__item[data-type="education"] & { border-color: var(--home-tl-edu); }
-  .ds-timeline__item[data-type="publication"] & { border-color: var(--home-tl-pub); }
-  .ds-timeline__item[data-type="industry"] & { border-color: var(--home-tl-ind); }
-}
-
-.ds-timeline__body {
-  padding-left: 0.5rem;
-}
-
-.ds-timeline__date {
-  display: inline-block;
-  font-size: $type-size-6;
-  font-weight: 600;
-  color: var(--home-card-muted);
-  margin-bottom: 0.25rem;
-}
-
-.ds-timeline__heading {
-  font-family: $header-font-family;
-  font-size: $type-size-4;
-  font-weight: 600;
-  margin: 0 0 0.4rem;
-  color: var(--home-section-text);
-}
-
-.ds-timeline p {
-  font-size: $type-size-5;
-  line-height: 1.6;
-  color: var(--home-card-muted);
-  margin: 0;
-}
-
-@media (min-width: $large) {
-  .ds-timeline {
-    padding-left: 0;
-
-    &::before {
-      left: 50%;
-      transform: translateX(-50%);
-    }
-  }
-
-  .ds-timeline__item {
-    width: 50%;
-    padding-bottom: 3rem;
-
-    &:nth-child(odd) {
-      margin-left: 0;
-      padding-right: 2.5rem;
-      text-align: right;
-
-      .ds-timeline__marker { left: auto; right: -8px; }
-      .ds-timeline__body { padding-left: 0; padding-right: 0.5rem; }
-    }
-
-    &:nth-child(even) {
-      margin-left: 50%;
-      padding-left: 2.5rem;
-
-      .ds-timeline__marker { left: -8px; }
-      .ds-timeline__body { padding-left: 0.5rem; }
-    }
   }
 }
 
@@ -354,7 +254,7 @@
   width: 42px;
   height: 42px;
   border-radius: 10px;
-  background: rgba(56, 189, 248, 0.1);
+  background: var(--gt-accent-glow);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -641,11 +541,8 @@
 }
 
 .ds-pub-line__row {
-  display: grid;
-  grid-template-columns: 4.5rem 1fr;
-  gap: 1rem;
-  align-items: baseline;
-  padding: 0.75rem 0.5rem;
+  display: block;
+  padding: 0.85rem 0.5rem;
   text-decoration: none;
   color: var(--home-section-text);
   border-bottom: 1px solid var(--home-card-border);
@@ -661,12 +558,23 @@
   }
 }
 
-.ds-pub-line__year {
+/* Year group — the year is the primary heading, papers sit beneath it */
+.ds-pub-year {
+  & + & {
+    margin-top: 3rem;
+  }
+}
+
+.ds-pub-year__heading {
   font-family: $header-font-family;
-  font-size: $type-size-6;
+  font-size: $type-size-2;
   font-weight: 700;
-  color: var(--home-accent);
-  letter-spacing: 0.02em;
+  line-height: 1;
+  letter-spacing: 0.01em;
+  margin: 0 0 1rem;
+  padding-bottom: 0.5rem;
+  color: var(--home-section-text);
+  border-bottom: 3px solid var(--home-accent-soft);
 }
 
 .ds-pub-line__main {
@@ -681,6 +589,7 @@
   font-size: $type-size-5;
   font-weight: 600;
   line-height: 1.35;
+  margin: 0;
   color: inherit;
 }
 
@@ -697,9 +606,18 @@
 }
 
 .ds-pub-line__authors {
-  font-size: $type-size-7;
+  font-size: $type-size-5;
   color: var(--home-card-muted);
-  line-height: 1.4;
+  line-height: 1.5;
+}
+
+/* Own name — bold + underlined so it stands out in the author list */
+.ds-pub-line__me {
+  font-weight: 700;
+  color: var(--home-section-text);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  text-decoration-thickness: 1.5px;
 }
 
 .ds-pub-line__venue {

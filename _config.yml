@@ -8,7 +8,8 @@
 
 # Basic Site Settings
 locale                   : "en-US"
-site_theme               : "default" # Currently available options are "default", "air"
+site_theme               : "default" # SCSS theme family. Options: "default", "air"
+color_mode               : "light"   # Monochrome palette to ship. Options: "light" (white bg) or "dark" (black bg)
 title                    : "Shaoyi Zheng"
 title_separator          : "-"
 name                     : &name "Shaoyi Zheng"
@@ -185,8 +186,8 @@ kramdown:
 # These settings control the types of collections used by the template
 collections:
   publications:
-    output: true
-    permalink: /:collection/:path/
+    # No individual publication pages — entries link straight to arXiv.
+    output: false
 
 
 # These settings control how pages and collections are included in the site
@@ -216,15 +217,6 @@ defaults:
     values:
       layout: single
       author_profile: true
-      share: true
-      comments: true
-  # _publications
-  - scope:
-      path: ""
-      type: publications
-    values:
-      layout: publication
-      author_profile: false
       share: true
       comments: true
   # _portfolio

@@ -72,7 +72,7 @@ layout: default
     <ul class="home-news-list">
       <li class="home-news-item reveal">
         <span class="home-news-date">04-30-2026</span>
-        <span class="home-news-text">Two papers accepted to <strong>ICML 2026</strong>: <a href="{{ base_path }}/publication/2026-03-05-infoflow-kv"><strong>InfoFlow KV</strong></a> and <a href="{{ base_path }}/publication/2025-09-30-hilbert-attention-for-image-generation-with-diffusion-models"><strong>HilbertA</strong></a>. See you in Seoul!</span>
+        <span class="home-news-text">Two papers accepted to <strong>ICML 2026</strong>: <a href="https://arxiv.org/abs/2603.05353" target="_blank" rel="noopener"><strong>InfoFlow KV</strong></a> and <a href="https://arxiv.org/abs/2509.26538" target="_blank" rel="noopener"><strong>HilbertA</strong></a>. See you in Seoul!</span>
       </li>
       <li class="home-news-item reveal">
         <span class="home-news-date">03-10-2026</span>
@@ -81,33 +81,5 @@ layout: default
     </ul>
   </div>
 </section>
-
-<!-- ========== TIMELINE SECTION ========== -->
-{% if site.data.timeline %}
-<section class="home-section home-timeline" id="home-timeline">
-  <div class="home-section__inner">
-    <h2 class="home-section__title">Journey</h2>
-    <ol class="timeline" id="js-timeline">
-      {% for item in site.data.timeline %}
-      <li class="timeline__item reveal" data-type="{{ item.type }}">
-        <span class="timeline__marker"></span>
-        <div class="timeline__body">
-          <span class="timeline__date">{{ item.date }}</span>
-          <h3 class="timeline__heading">
-            {% if item.link %}<a href="{{ base_path }}{{ item.link }}">{{ item.title }}</a>{% else %}{{ item.title }}{% endif %}
-          </h3>
-          {% if item.detail %}<p>{{ item.detail }}</p>{% endif %}
-          {% if item.tags %}
-          <div class="timeline__tags">
-            {% for tag in item.tags %}<span class="timeline__tag">{{ tag }}</span>{% endfor %}
-          </div>
-          {% endif %}
-        </div>
-      </li>
-      {% endfor %}
-    </ol>
-  </div>
-</section>
-{% endif %}
 
 

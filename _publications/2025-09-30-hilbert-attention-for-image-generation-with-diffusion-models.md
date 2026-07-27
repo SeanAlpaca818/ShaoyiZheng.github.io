@@ -2,10 +2,11 @@
 title: "Hilbert Attention for Image Generation with Diffusion Models"
 collection: publications
 category: conferences
-permalink: /publication/2025-09-30-hilbert-attention-for-image-generation-with-diffusion-models
 excerpt: "Proposed HilbertA, a sparse attention mechanism based on the Hilbert curve that jointly preserves 2D spatial locality and enables contiguous memory access, improving sparsity efficiency and memory throughput. Designed Hilbert-curve sparse attention with reordering, tiling, and sliding strategies to support local modeling and global information flow while maintaining coalesced GPU memory access and preserving image locality. Developed custom sparse attention kernel fusion in Triton and integrated LoRA fine-tuning to maximize information flow and computational efficiency. Achieved up to 4.17× speedup on Flux.1 with comparable image quality, demonstrating a superior speed–quality trade-off over dense and 2D sparse baselines."
 date: 2025-09-30
 venue: "ICML 2026"
+year: "2026"
+arxiv: "https://arxiv.org/abs/2509.26538"
 authors: "Shaoyi Zheng, Wenbo Lu, Yuxuan Xia, Haomin Liu, Shengjie Wang"
 tags: [efficient-ai]
 ---

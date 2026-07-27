@@ -2,45 +2,64 @@
    HOMEPAGE STYLES
    ========================================================================== */
 
-/* ---------- CSS Custom Properties ---------- */
+/* ---------- CSS Custom Properties ----------
+   Greyscale base with a single accent hue: #A7C1D9 (hsl 209 40% 75%).
+
+   That tint only clears WCAG AA on dark backgrounds (10.6:1 on the near-black
+   hero, 1.9:1 on white — far under the 4.5:1 minimum), so it is split in two:
+     --home-accent       text-safe: #365A7D on white (6.7:1), #A7C1D9 on black
+     --home-accent-soft  the tint itself, decorative only (rules, glows, icons)
+
+   The hero follows the theme too, so its accent is text-safe per mode and the
+   wave canvas reads --wave-color. Default mode comes from `color_mode` in
+   _config.yml; visitors override it with the masthead toggle.
+   ------------------------------------------------------------------------- */
 :root {
-  --home-hero-bg:            hsl(195, 90%, 8%);
-  --home-hero-text:          #f1f5f9;
-  --home-hero-muted:         #94a3b8;
-  --home-accent:             #38bdf8;
-  --home-accent-glow:        rgba(56, 189, 248, 0.35);
-  --home-card-bg:            hsl(195, 25%, 96%);
-  --home-card-border:        hsl(195, 30%, 87%);
-  --home-card-shadow:        rgba(56, 189, 248, 0.10);
-  --home-card-text:          #334155;
-  --home-card-muted:         #64748b;
-  --home-section-bg:         hsl(195, 40%, 91%);
-  --home-section-alt-bg:     hsl(195, 30%, 94%);
-  --home-section-text:       #1e293b;
-  --home-timeline-line:      hsl(195, 20%, 78%);
-  --home-tl-edu:             #14b8a6;
-  --home-tl-pub:             #3b82f6;
-  --home-tl-ind:             #f97316;
+  --home-hero-bg:            #ffffff;
+  --home-hero-text:          #111111;
+  --home-hero-muted:         #6b7580;
+  --home-hero-accent:        #365a7d;
+  --home-hero-accent-glow:   rgba(54, 90, 125, 0.22);
+  --color-hero-border:       rgba(54, 90, 125, 0.45);
+  /* Wave canvas. Geometry (width + density) is shared by both themes and
+     lives ONLY here — dark mode overrides the color alone, so the two can
+     never drift apart. Light = black lines, dark = white lines. */
+  --wave-color:              rgba(17, 17, 17, 0.50);
+  --wave-line-width:         2.2;
+  --wave-gap-scale:          2;
+  --home-accent:             #365a7d;
+  --home-accent-soft:        #a7c1d9;
+  --home-accent-glow:        rgba(167, 193, 217, 0.35);
+  --home-card-bg:            #f7f9fb;
+  --home-card-border:        #e0e6ec;
+  --home-card-shadow:        rgba(54, 90, 125, 0.10);
+  --home-card-text:          #2b2b2b;
+  --home-card-muted:         #6b7580;
+  --home-section-bg:         #ffffff;
+  --home-section-alt-bg:     #f4f7f9;
+  --home-section-text:       #111111;
 }
 
 html[data-theme="dark"] {
-  --home-hero-bg:            hsl(195, 60%, 6%);
-  --home-hero-text:          #e2e8f0;
-  --home-hero-muted:         #94a3b8;
-  --home-accent:             #38bdf8;
-  --home-accent-glow:        rgba(56, 189, 248, 0.25);
-  --home-card-bg:            hsl(195, 25%, 17%);
-  --home-card-border:        hsl(195, 20%, 22%);
-  --home-card-shadow:        rgba(0, 0, 0, 0.3);
-  --home-card-text:          #e2e8f0;
-  --home-card-muted:         #94a3b8;
-  --home-section-bg:         hsl(195, 40%, 9%);
-  --home-section-alt-bg:     hsl(195, 30%, 14%);
-  --home-section-text:       #e2e8f0;
-  --home-timeline-line:      hsl(195, 15%, 32%);
-  --home-tl-edu:             #2dd4bf;
-  --home-tl-pub:             #60a5fa;
-  --home-tl-ind:             #fb923c;
+  --home-hero-bg:            #050505;
+  --home-hero-text:          #f5f5f5;
+  --home-hero-muted:         #9aa7b2;
+  --home-hero-accent:        #a7c1d9;
+  --home-hero-accent-glow:   rgba(167, 193, 217, 0.22);
+  --color-hero-border:       rgba(167, 193, 217, 0.45);
+  /* Wave canvas: same geometry as light, inverted color */
+  --wave-color:              rgba(255, 255, 255, 0.60);
+  --home-accent:             #a7c1d9;
+  --home-accent-soft:        #a7c1d9;
+  --home-accent-glow:        rgba(167, 193, 217, 0.20);
+  --home-card-bg:            #1a1c1e;
+  --home-card-border:        #2e3236;
+  --home-card-shadow:        rgba(0, 0, 0, 0.5);
+  --home-card-text:          #ededed;
+  --home-card-muted:         #9aa7b2;
+  --home-section-bg:         #0d0e0f;
+  --home-section-alt-bg:     #141618;
+  --home-section-text:       #fafafa;
 }
 
 /* ---------- Hero ---------- */
@@ -84,8 +103,8 @@ html[data-theme="dark"] {
   margin: 0 auto 1.5rem;
   border-radius: 50%;
   overflow: hidden;
-  border: 3px solid var(--color-hero-border, var(--home-accent));
-  box-shadow: 0 0 30px var(--home-accent-glow);
+  border: 3px solid var(--color-hero-border);
+  box-shadow: 0 0 30px var(--home-hero-accent-glow);
 
   img {
     width: 100%;
@@ -122,13 +141,13 @@ html[data-theme="dark"] {
 }
 
 .home-hero__typing-text {
-  color: var(--home-accent);
+  color: var(--home-hero-accent);
   font-weight: 600;
 }
 
 .home-hero__cursor {
   display: inline-block;
-  color: var(--home-accent);
+  color: var(--home-hero-accent);
   animation: blink 0.7s step-end infinite;
   font-weight: 300;
 }
@@ -158,9 +177,9 @@ html[data-theme="dark"] {
     text-decoration: none;
 
     &:hover {
-      color: var(--home-accent);
-      border-color: var(--home-accent);
-      box-shadow: 0 0 12px var(--home-accent-glow);
+      color: var(--home-hero-accent);
+      border-color: var(--home-hero-accent);
+      box-shadow: 0 0 12px var(--home-hero-accent-glow);
       transform: translateY(-2px);
     }
   }
@@ -186,7 +205,7 @@ html[data-theme="dark"] {
     display: block;
     width: 4px;
     height: 8px;
-    background: var(--home-accent);
+    background: var(--home-hero-accent);
     border-radius: 2px;
     position: absolute;
     left: 50%;
@@ -226,7 +245,7 @@ html[data-theme="dark"] {
   font-weight: 700;
   margin: 0 0 2.5rem;
   padding-bottom: 0.6rem;
-  border-bottom: 3px solid var(--home-accent);
+  border-bottom: 3px solid var(--home-accent-soft);
   display: inline-block;
   color: var(--home-section-text);
 }
@@ -339,208 +358,6 @@ html[data-theme="dark"] {
 
   strong {
     color: var(--home-accent);
-  }
-}
-
-/* ---------- Timeline ---------- */
-.timeline {
-  position: relative;
-  padding-left: 2rem;
-  list-style: none;
-  margin: 0;
-  --tl-progress: 0%;
-
-  /* vertical line (background) */
-  &::before {
-    content: '';
-    position: absolute;
-    left: 7px;
-    top: 0;
-    bottom: 0;
-    width: 2px;
-    background: var(--home-timeline-line);
-  }
-
-  /* vertical line (progress fill, scroll-driven via JS) */
-  &::after {
-    content: '';
-    position: absolute;
-    left: 7px;
-    top: 0;
-    width: 2px;
-    height: var(--tl-progress);
-    background: linear-gradient(
-      to bottom,
-      var(--home-accent) 0%,
-      var(--home-accent) 60%,
-      color-mix(in srgb, var(--home-accent) 30%, transparent) 100%
-    );
-    box-shadow: 0 0 12px var(--home-accent-glow, color-mix(in srgb, var(--home-accent) 50%, transparent));
-    transition: height 0.18s linear;
-    pointer-events: none;
-  }
-}
-
-.timeline__item {
-  position: relative;
-  padding-bottom: 2.5rem;
-
-  &:last-child {
-    padding-bottom: 0;
-  }
-}
-
-.timeline__marker {
-  position: absolute;
-  left: -2rem;
-  top: 0.25rem;
-  width: 16px;
-  height: 16px;
-  border-radius: 50%;
-  border: 3px solid var(--home-tl-pub);
-  background: var(--home-section-bg);
-  z-index: 2;
-  transition: transform 0.4s cubic-bezier(.2,.7,.2,1.3),
-              box-shadow 0.4s ease;
-  transform: scale(0.6);
-
-  .reveal--visible & {
-    transform: scale(1);
-    box-shadow: 0 0 0 4px color-mix(in srgb, var(--home-tl-pub) 22%, transparent);
-  }
-
-  .timeline__item[data-type="education"].reveal--visible & {
-    box-shadow: 0 0 0 4px color-mix(in srgb, var(--home-tl-edu) 22%, transparent);
-  }
-
-  .timeline__item[data-type="industry"].reveal--visible & {
-    box-shadow: 0 0 0 4px color-mix(in srgb, var(--home-tl-ind) 22%, transparent);
-  }
-
-  .timeline__item[data-type="education"] & {
-    border-color: var(--home-tl-edu);
-  }
-
-  .timeline__item[data-type="publication"] & {
-    border-color: var(--home-tl-pub);
-  }
-
-  .timeline__item[data-type="industry"] & {
-    border-color: var(--home-tl-ind);
-  }
-}
-
-.timeline__body {
-  padding-left: 0.5rem;
-}
-
-.timeline__date {
-  display: inline-block;
-  font-size: $type-size-6;
-  font-weight: 600;
-  color: var(--home-card-muted);
-  margin-bottom: 0.25rem;
-}
-
-.timeline__heading {
-  font-family: $header-font-family;
-  font-size: $type-size-4;
-  font-weight: 600;
-  margin: 0 0 0.4rem;
-  color: var(--home-section-text);
-
-  a {
-    color: inherit;
-    text-decoration: none;
-    border-bottom: 1px solid transparent;
-    transition: color 0.2s ease, border-color 0.2s ease;
-
-    &:hover, &:focus {
-      color: var(--home-accent);
-      border-bottom-color: var(--home-accent);
-    }
-  }
-}
-
-.timeline p {
-  font-size: $type-size-5;
-  line-height: 1.6;
-  color: var(--home-card-muted);
-  margin: 0;
-
-  em {
-    font-style: normal;
-    color: var(--home-accent);
-    font-weight: 600;
-  }
-}
-
-.timeline__tags {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.35rem;
-  margin-top: 0.5rem;
-}
-
-.timeline__tag {
-  font-size: 0.7rem;
-  padding: 0.15rem 0.55rem;
-  border-radius: 999px;
-  border: 1px solid var(--home-card-border);
-  color: var(--home-card-muted);
-  background: var(--home-card-bg);
-  white-space: nowrap;
-  line-height: 1.4;
-}
-
-/* Desktop: alternating left/right */
-@media (min-width: $large) {
-  .timeline {
-    padding-left: 0;
-
-    &::before,
-    &::after {
-      left: 50%;
-      transform: translateX(-50%);
-    }
-  }
-
-  .timeline__item {
-    width: 50%;
-    padding-bottom: 3rem;
-
-    &:nth-child(odd) {
-      margin-left: 0;
-      padding-right: 2.5rem;
-      text-align: right;
-
-      .timeline__marker {
-        left: auto;
-        right: -8px;
-      }
-
-      .timeline__body {
-        padding-left: 0;
-        padding-right: 0.5rem;
-      }
-
-      .timeline__tags {
-        justify-content: flex-end;
-      }
-    }
-
-    &:nth-child(even) {
-      margin-left: 50%;
-      padding-left: 2.5rem;
-
-      .timeline__marker {
-        left: -8px;
-      }
-
-      .timeline__body {
-        padding-left: 0.5rem;
-      }
-    }
   }
 }
 

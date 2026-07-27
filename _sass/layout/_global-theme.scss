@@ -9,59 +9,61 @@
    1. CSS CUSTOM PROPERTIES — Color palette override
    ========================================================================== */
 :root {
-  --global-link-color:                #0ea5e9;
-  --global-link-color-hover:          #0284c7;
-  --global-link-color-visited:        #0ea5e9;
-  --global-masthead-link-color:       #334155;
-  --global-masthead-link-color-hover: #0ea5e9;
-  --global-border-color:              #e2e8f0;
-  --global-dark-border-color:         #cbd5e1;
-  --global-text-color:                #1e293b;
-  --global-text-color-light:          #64748b;
-  --global-bg-color:                  hsl(195, 30%, 94%);
-  --global-footer-bg-color:           hsl(195, 35%, 91%);
-  --global-base-color:                #0ea5e9;
-  --global-thead-color:               #f1f5f9;
-  --global-code-background-color:     #f8fafc;
-  --global-code-text-color:           #334155;
+  --global-link-color:                #365a7d;
+  --global-link-color-hover:          #24405a;
+  --global-link-color-visited:        #365a7d;
+  --global-masthead-link-color:       #2b2b2b;
+  --global-masthead-link-color-hover: #365a7d;
+  --global-border-color:              #e2e2e2;
+  --global-dark-border-color:         #c9c9c9;
+  --global-text-color:                #111111;
+  --global-text-color-light:          #6b6b6b;
+  --global-bg-color:                  #ffffff;
+  --global-footer-bg-color:           #f5f5f5;
+  --global-base-color:                #365a7d;
+  --global-thead-color:               #f0f0f0;
+  --global-code-background-color:     #f7f7f7;
+  --global-code-text-color:           #2b2b2b;
 
   /* Shared layout tokens (reused by both global + home) */
-  --gt-surface:            hsl(195, 25%, 96%);
-  --gt-surface-raised:     hsl(195, 35%, 93%);
+  --gt-surface:            #f7f7f7;
+  --gt-surface-raised:     #ffffff;
   --gt-card-shadow:        0 1px 3px rgba(0, 0, 0, 0.06), 0 1px 2px rgba(0, 0, 0, 0.04);
   --gt-card-shadow-hover:  0 10px 30px rgba(0, 0, 0, 0.08);
   --gt-radius:             12px;
   --gt-radius-sm:          8px;
-  --gt-accent:             #38bdf8;
-  --gt-accent-glow:        rgba(56, 189, 248, 0.25);
-  --gt-muted:              #64748b;
+  --gt-accent:             #365a7d;
+  --gt-accent-glow:        rgba(167, 193, 217, 0.30);
+  --gt-muted:              #6b6b6b;
   --gt-section-padding:    4rem 1.5rem;
+  --gt-masthead-bg:        rgba(255, 255, 255, 0.85);
 }
 
 html[data-theme="dark"] {
-  --global-link-color:                #38bdf8;
-  --global-link-color-hover:          #7dd3fc;
-  --global-link-color-visited:        #38bdf8;
-  --global-masthead-link-color:       #e2e8f0;
-  --global-masthead-link-color-hover: #38bdf8;
-  --global-border-color:              #334155;
-  --global-dark-border-color:         #475569;
-  --global-text-color:                #e2e8f0;
-  --global-text-color-light:          #94a3b8;
-  --global-bg-color:                  hsl(195, 40%, 9%);
-  --global-footer-bg-color:           hsl(195, 40%, 9%);
-  --global-base-color:                #38bdf8;
-  --global-thead-color:               #1e293b;
-  --global-code-background-color:     #1e293b;
-  --global-code-text-color:           #e2e8f0;
+  --global-link-color:                #a7c1d9;
+  --global-link-color-hover:          #c6d8e8;
+  --global-link-color-visited:        #a7c1d9;
+  --global-masthead-link-color:       #ededed;
+  --global-masthead-link-color-hover: #a7c1d9;
+  --global-border-color:              #2e2e2e;
+  --global-dark-border-color:         #3d3d3d;
+  --global-text-color:                #ededed;
+  --global-text-color-light:          #a1a1a1;
+  --global-bg-color:                  #0d0d0d;
+  --global-footer-bg-color:           #0d0d0d;
+  --global-base-color:                #a7c1d9;
+  --global-thead-color:               #1a1a1a;
+  --global-code-background-color:     #1a1a1a;
+  --global-code-text-color:           #ededed;
 
-  --gt-surface:            hsl(195, 25%, 17%);
-  --gt-surface-raised:     hsl(195, 40%, 9%);
+  --gt-surface:            #1a1a1a;
+  --gt-surface-raised:     #0d0d0d;
   --gt-card-shadow:        0 1px 3px rgba(0, 0, 0, 0.2), 0 1px 2px rgba(0, 0, 0, 0.15);
   --gt-card-shadow-hover:  0 10px 30px rgba(0, 0, 0, 0.3);
-  --gt-accent:             #38bdf8;
-  --gt-accent-glow:        rgba(56, 189, 248, 0.2);
-  --gt-muted:              #94a3b8;
+  --gt-accent:             #a7c1d9;
+  --gt-accent-glow:        rgba(167, 193, 217, 0.22);
+  --gt-muted:              #a1a1a1;
+  --gt-masthead-bg:        rgba(10, 10, 10, 0.85);
 }
 
 
@@ -88,7 +90,7 @@ body {
 }
 
 html[data-theme="dark"] .masthead {
-  background: rgba(15, 23, 42, 0.8);
+  background: var(--gt-masthead-bg);
 }
 
 .greedy-nav {
