@@ -8,8 +8,10 @@ Shaoyi (Sean) Zheng's academic personal website built with Jekyll using the [Aca
 
 ## Branching
 
-- **`master`** — production branch, deployed to GitHub Pages. Contains the upstream template with minimal customization.
-- **`dev`** — development branch with all personal content (publications, CV, about page). Work here and merge to `master` to deploy.
+- **`dev`** — the live branch. GitHub Pages builds the site from `dev` (verify with `gh api repos/OWNER/REPO/pages`), so **pushing to `dev` deploys to https://www.shaoyizheng.me**. All work happens here.
+- **`master`** — GitHub's *default* branch, but not what Pages serves. It holds an older state of the upstream template and is not part of the deploy path. Do not merge `dev` into it expecting a deploy.
+
+Check a deploy with `gh api repos/OWNER/REPO/pages/builds --jq '.[0]'`.
 
 ## Development Commands
 
