@@ -38,6 +38,7 @@
   --home-section-bg:         #ffffff;
   --home-section-alt-bg:     #f4f7f9;
   --home-section-text:       #111111;
+  --home-status-color:       #b54708;
 }
 
 html[data-theme="dark"] {
@@ -60,6 +61,7 @@ html[data-theme="dark"] {
   --home-section-bg:         #0d0e0f;
   --home-section-alt-bg:     #141618;
   --home-section-text:       #fafafa;
+  --home-status-color:       #ffad66;
 }
 
 /* ---------- Hero ---------- */
@@ -251,6 +253,10 @@ html[data-theme="dark"] {
 }
 
 /* ---------- About ---------- */
+.home-about__status {
+  font-family: Georgia, "Times New Roman", serif;
+}
+
 .home-about__content {
   font-size: $type-size-5;
   line-height: 1.75;
@@ -266,6 +272,16 @@ html[data-theme="dark"] {
 
   strong {
     color: var(--home-accent);
+  }
+
+  .home-about__status,
+  .home-about__status strong,
+  .home-about__status a {
+    color: var(--home-status-color);
+  }
+
+  .home-about__status a {
+    text-decoration: underline;
   }
 
   h1, h2, h3 {

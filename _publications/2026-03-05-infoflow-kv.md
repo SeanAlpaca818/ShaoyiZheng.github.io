@@ -1,6 +1,7 @@
 ---
 title: "InfoFlow KV: Information-Flow-Aware KV Recomputation for Long Context"
 collection: publications
+first_author: true
 category: conferences
 excerpt: "Proposed a method that casts selective KV recomputation as an information flow problem, using attention-norm signals to identify tokens that are both semantically relevant and structurally capable of propagating information. Introduced information-flow-guided chunk reordering and demonstrated improvements across language and vision-language model benchmarks for retrieval-augmented generation with extended contexts."
 date: 2026-03-05

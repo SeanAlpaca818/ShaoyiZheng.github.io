@@ -18,3 +18,7 @@ Hi, I’m **Shaoyi Zheng**, currently a Ph.D. student in Computer Science at the
 **Robotic Agentic System** — Hierarchical rather than monolithic: a deliberative layer that plans over long horizons, and a reactive action model that runs at control rate. I am interested in how cleanly the two decouple — what the planner hands down, and how they stay consistent when plan and reality disagree.
 
 **Efficiency Foundation Model** — Making large generative models fast without giving up quality: sparse and hardware-aligned attention, token merging, and selective KV-cache recomputation for long contexts. FLOP savings mean little if they fight the hardware, so I care about speedups that hold up on the clock.
+
+## Status
+
+<p class="home-about__status"><strong><em>I am actively seeking Spring 2027 and Summer 2027 internships focused on robotics and world models. If you are interested, please contact me at <a href="mailto:sz3684@nyu.edu">sz3684@nyu.edu</a>.</em></strong></p>

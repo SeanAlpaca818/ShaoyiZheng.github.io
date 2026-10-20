@@ -1,6 +1,7 @@
 ---
 title: "Submodular Context Partitioning and Compression for In-Context Learning"
 collection: publications
+first_author: true
 category: manuscripts
 excerpt: "Proposed Sub-CP, a submodular, block-aware context selection framework that controls a diversity–coherence spectrum for scalable in‑context learning. Designed four partition strategies—Global Diverse, Global–Local Diverse, Local Diverse, and Local Coherent—to balance global coverage and local structure. Integrated Sub-CP into DENSE, ICAE, and CEPE pipelines, yielding significant gains on datasets like TREC, SST‑2/5, MR, and AG News."
 date: 2025-05-30

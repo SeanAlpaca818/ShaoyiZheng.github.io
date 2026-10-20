@@ -32,6 +32,7 @@ author_profile: false
 {% if all_pubs.size > 0 %}
 <section class="ds-section">
   <div class="ds-section__inner">
+    <p class="ds-pub-note"><sup>†</sup> First-author or co-first-author contribution.</p>
     {% for year in years %}
     <div class="ds-pub-year">
       <h2 class="ds-pub-year__heading reveal">{{ year.name }}</h2>
@@ -40,9 +41,8 @@ author_profile: false
         <li>
           <a href="{{ pub.arxiv }}" class="ds-pub-line__row reveal" target="_blank" rel="noopener">
             <span class="ds-pub-line__main">
-              <h3 class="ds-pub-line__title">{{ pub.title }}</h3>
+              <h3 class="ds-pub-line__title">{{ pub.title }}{% if pub.first_author %}<sup title="First-author or co-first-author contribution">†</sup>{% endif %}</h3>
               <span class="ds-pub-line__meta">
-                {% if pub.authors %}<span class="ds-pub-line__authors">{{ pub.authors | replace: "Shaoyi Zheng", "<span class='ds-pub-line__me'>Shaoyi Zheng</span>" }}</span>{% endif %}
                 <span class="ds-pub-line__venue">{{ pub.venue }}</span>
               </span>
             </span>

@@ -1,6 +1,7 @@
 ---
 title: "ToMA: Token Merge with Attention for Diffusion Models"
 collection: publications
+first_author: true
 category: conferences
 excerpt: 'ToMA is a GPU‑aligned token merging framework for diffusion models, reformulating token merging as an attention‑like linear transformation with invertible unmerge to accelerate diffusion models without degrading quality, using submodular token selection and GPU‑efficient operations.'
 date: 2025-07-01
