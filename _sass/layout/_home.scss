@@ -99,6 +99,65 @@ html[data-theme="dark"] {
   max-width: 700px;
 }
 
+/* Local trial: ASCII sharks in the homepage hero only. */
+.home-hero--ascii {
+  .home-hero__canvas {
+    display: block;
+    font-family: ui-monospace, Menlo, Consolas, monospace;
+    filter: invert(1) hue-rotate(180deg);
+    opacity: 0.75;
+    pointer-events: none;
+  }
+
+  .home-hero__overlay {
+    background: radial-gradient(ellipse at 50% 45%, var(--home-hero-bg) 0%, transparent 68%),
+                linear-gradient(to top, var(--home-hero-bg), transparent 18%);
+    opacity: 0.8;
+  }
+}
+
+html[data-theme="dark"] .home-hero--ascii .home-hero__canvas {
+  filter: none;
+  opacity: 0.85;
+}
+
+/* Koi pond preview: pigment colors stay true in both site themes. */
+.home-hero--koi {
+  --home-hero-bg: #edf1e7;
+  --home-hero-text: #23392f;
+  --home-hero-muted: #5b7063;
+  --home-hero-accent: #486852;
+  --home-hero-accent-glow: rgba(106, 133, 90, 0.16);
+  --color-hero-border: rgba(123, 141, 103, 0.5);
+
+  .home-hero__canvas {
+    display: block;
+    font-family: ui-monospace, Menlo, Consolas, monospace;
+    pointer-events: none;
+  }
+
+  .home-hero__overlay {
+    background: radial-gradient(ellipse at 50% 43%, var(--home-hero-bg) 0%, transparent 65%),
+                linear-gradient(to top, var(--home-hero-bg), transparent 14%);
+    opacity: 0.55;
+  }
+
+  .home-hero__name,
+  .home-hero__affiliation,
+  .home-hero__typing {
+    text-shadow: 0 0 6px var(--home-hero-bg), 0 2px 14px var(--home-hero-bg);
+  }
+}
+
+html[data-theme="dark"] .home-hero--koi {
+  --home-hero-bg: #eceae2;
+  --home-hero-text: #30332f;
+  --home-hero-muted: #62665f;
+  --home-hero-accent: #91564a;
+  --home-hero-accent-glow: rgba(91, 96, 86, 0.08);
+  --color-hero-border: rgba(95, 101, 92, 0.30);
+}
+
 .home-hero__avatar {
   width: 243px;
   height: 243px;
