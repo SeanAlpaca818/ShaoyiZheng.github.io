@@ -38,7 +38,10 @@
   --home-section-bg:         #ffffff;
   --home-section-alt-bg:     #f4f7f9;
   --home-section-text:       #111111;
-  --home-status-color:       #b54708;
+  --home-status-color:       #845100;
+  --home-status-bg:          #fff8e7;
+  --home-status-border:      #e7c779;
+  --home-status-accent:      #c78b12;
 }
 
 html[data-theme="dark"] {
@@ -61,7 +64,10 @@ html[data-theme="dark"] {
   --home-section-bg:         #0d0e0f;
   --home-section-alt-bg:     #141618;
   --home-section-text:       #fafafa;
-  --home-status-color:       #ffad66;
+  --home-status-color:       #f4d383;
+  --home-status-bg:          #292617;
+  --home-status-border:      #70602d;
+  --home-status-accent:      #f0c443;
 }
 
 /* ---------- Hero ---------- */
@@ -313,7 +319,27 @@ html[data-theme="dark"] .home-hero--koi {
 
 /* ---------- About ---------- */
 .home-about__status {
-  font-family: Georgia, "Times New Roman", serif;
+  position: relative;
+  padding: 1.15rem 1.4rem 1.15rem 2.7rem;
+  background: var(--home-status-bg);
+  border: 1px solid var(--home-status-border);
+  border-left: 4px solid var(--home-status-accent);
+  border-radius: 12px;
+  font-family: inherit;
+  font-style: normal;
+  overflow-wrap: anywhere;
+
+  &::before {
+    content: "";
+    position: absolute;
+    top: 1.75rem;
+    left: 1.1rem;
+    width: 0.55rem;
+    height: 0.55rem;
+    border-radius: 50%;
+    background: var(--home-status-accent);
+    box-shadow: 0 0 0 4px var(--home-status-bg), 0 0 0 5px var(--home-status-border);
+  }
 }
 
 .home-about__content {
@@ -333,7 +359,11 @@ html[data-theme="dark"] .home-hero--koi {
     color: var(--home-accent);
   }
 
-  .home-about__status,
+  .home-about__status {
+    color: var(--home-section-text);
+    margin: 0 0 2rem;
+  }
+
   .home-about__status strong,
   .home-about__status a {
     color: var(--home-status-color);
