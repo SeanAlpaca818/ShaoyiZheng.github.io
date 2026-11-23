@@ -47,6 +47,9 @@ author_profile: false
               </span>
             </span>
           </a>
+          {% if pub.code %}
+          <a href="{{ pub.code }}" target="_blank" rel="noopener" aria-label="Code for {{ pub.title | escape }}">Code &rarr;</a>
+          {% endif %}
         </li>
         {% endfor %}
       </ul>
